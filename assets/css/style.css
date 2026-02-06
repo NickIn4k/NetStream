@@ -1,0 +1,285 @@
+/* ---------- PALETTE ---------- */
+:root {
+  --bg-main: #0b0b12;
+  --bg-secondary: #141420;
+  --bg-card: #1c1c2b;
+
+  --purple-main: #7b3fe4;
+  --purple-light: #a855f7;
+  --purple-hover: #9333ea;
+
+  --text-main: #ffffff;
+  --text-muted: #b3b3b3;
+
+  --border-soft: rgba(255, 255, 255, 0.1);
+}
+
+/* ---------- RESET ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  min-height: 100vh;
+}
+
+/* ---------- HEADER / NAVBAR ---------- */
+
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 20px 40px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.85), transparent);
+  z-index: 100;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--purple-light);
+  letter-spacing: 1px;
+}
+
+.logo-img {
+    height: 150px;
+    width: auto;
+}
+
+.nav-links a {
+  margin-left: 25px;
+  color: var(--text-main);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.nav-links a:hover {
+  color: var(--purple-light);
+}
+
+/* ---------- HERO / HOME ---------- */
+
+.hero {
+  height: 80vh;
+  padding: 80px 60px;
+  display: flex;
+  align-items: center;
+  background: radial-gradient(circle at top, #2a145f, #0b0b12 70%);
+}
+
+.hero-content {
+  max-width: 600px;
+}
+
+.hero h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 18px;
+  color: var(--text-muted);
+}
+
+/* ---------- BOTTONI ---------- */
+
+.btn {
+  padding: 12px 26px;
+  border-radius: 4px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-play {
+  background-color: var(--purple-main);
+  color: white;
+}
+
+.btn-play:hover {
+  background-color: var(--purple-hover);
+}
+
+.btn-secondary {
+  background-color: rgba(255,255,255,0.15);
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255,255,255,0.25);
+}
+
+/* ---------- CATALOGO ---------- */
+
+.catalogo {
+  padding: 120px 40px 40px;
+}
+
+.sezione {
+  margin-bottom: 40px;
+}
+
+.sezione h2 {
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.card-row {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+.card {
+  min-width: 180px;
+  background-color: var(--bg-card);
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+}
+
+.card:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.45);
+}
+
+/* ---------- PAGINA CONTENUTO ---------- */
+
+.contenuto-header {
+  display: flex;
+  gap: 40px;
+  padding: 140px 60px 40px;
+}
+
+.contenuto-header img {
+  width: 260px;
+  border-radius: 10px;
+}
+
+.contenuto-info h1 {
+  font-size: 36px;
+  margin-bottom: 15px;
+}
+
+.contenuto-info p {
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+/* ---------- PLAYER ---------- */
+
+.player-container {
+  padding: 120px 40px;
+  display: flex;
+  justify-content: center;
+}
+
+video {
+  width: 100%;
+  max-width: 960px;
+  border-radius: 12px;
+  background: black;
+  box-shadow: 0 0 40px rgba(123, 63, 228, 0.5);
+}
+
+/* ---------- RECENSIONI ---------- */
+
+.recensione {
+  background-color: var(--bg-card);
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.recensione strong {
+  color: var(--purple-light);
+}
+
+.recensione p {
+  margin-top: 6px;
+  color: var(--text-muted);
+}
+
+/* ---------- PROFILI / AVATAR ---------- */
+
+.profili {
+  padding: 150px 40px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.profilo {
+  text-align: center;
+  cursor: pointer;
+}
+
+.profilo img {
+  width: 120px;
+  height: 120px;
+  border-radius: 10px;
+  border: 3px solid transparent;
+  transition: border 0.3s;
+}
+
+.profilo:hover img {
+  border-color: var(--purple-light);
+}
+
+.profilo span {
+  display: block;
+  margin-top: 10px;
+}
+
+/* ---------- FORM LOGIN / SIGNIN ---------- */
+
+.form-container {
+  max-width: 400px;
+  margin: 160px auto;
+  padding: 30px;
+  background-color: var(--bg-card);
+  border-radius: 10px;
+}
+
+.form-container h2 {
+  margin-bottom: 20px;
+}
+
+.form-container input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: none;
+  background-color: var(--bg-secondary);
+  color: white;
+}
+
+/* ---------- FOOTER ---------- */
+
+footer {
+  padding: 40px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 13px;
+}
