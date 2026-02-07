@@ -10,8 +10,8 @@
     <title>NetStream</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/Progetti/NetStream/assets/css/style.css">
-    <link rel="icon" type="image/png" href="/Progetti/NetStream/assets/img/loghi/Logo.png">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="icon" type="image/png" href="/assets/img/loghi/Logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -23,8 +23,8 @@
     <div class="floating-header-inner">
         <!-- LOGO -->
         <div class="logo-float">
-            <a href="/Progetti/NetStream/index.php">
-                <img src="/Progetti/NetStream/assets/img/loghi/Logo.png" alt="NetStream" class="logo-img">
+            <a href="/index.php">
+                <img src="/assets/img/loghi/Logo.png" alt="NetStream" class="logo-img">
             </a>
         </div>
 
@@ -40,12 +40,12 @@
             <div class="dropdown-menu" id="menu">
                 <?php 
                     if (isset($_SESSION['idProfilo'])) {
-                        echo "<a href='/Progetti/NetStream/catalogo/catalogo.php'>Catalogo</a>";
-                        echo "<a href='/Progetti/NetStream/user/dettagliUser.php'>Account</a>";
-                        echo "<a href='/Progetti/NetStream/auth/logout.php'>Logout</a>";
+                        echo "<a href='/catalogo/catalogo.php'>Catalogo</a>";
+                        echo "<a href='/user/dettagliUser.php'>Account</a>";
+                        echo "<a href='/auth/logout.php'>Logout</a>";
                     } else {
-                        echo "<a href='/Progetti/NetStream/auth/login.php'>Login</a>";
-                        echo "<a href='/Progetti/NetStream/auth/signin.php'>Registrati</a>";
+                        echo "<a href='/auth/login.php'>Login</a>";
+                        echo "<a href='/auth/signin.php'>Registrati</a>";
                     }
                 ?>
             </div>

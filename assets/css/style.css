@@ -258,7 +258,9 @@ body::after {
 
     background: linear-gradient(135deg, #ffffff, var(--viola-soft));
     -webkit-background-clip: text;
+    opacity: 0;
     -webkit-text-fill-color: transparent;
+    animation: fadeUp 1s ease forwards;
 }
 
 .hero-main h1 span {
@@ -270,7 +272,9 @@ body::after {
     margin-top: 12px;
     font-size: 1.4rem;
     font-weight: 400;
-    opacity: 0.85;
+    opacity: 0.0;
+    animation: fadeUp 1s ease forwards;
+    animation-delay: 0.2s;
 }
 
 @keyframes fadeUp {
@@ -282,4 +286,151 @@ body::after {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* --------------------------------------------------
+   PLANS
+-------------------------------------------------- */
+.plans-main {
+    position: relative;
+    z-index: 1;
+    padding: 80px 20px;
+    display: flex;
+    justify-content: center;
+    background: transparent;
+}
+
+.plans {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.plan {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(18px);
+    border-radius: 16px;
+    padding: 36px 24px;
+    min-width: 220px;
+    max-width: 280px;
+    text-align: center;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: pointer;
+}
+
+.plan:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.45);
+}
+
+.plan h2 {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, var(--viola), var(--viola-soft));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.plan p {
+    font-size: 1rem;
+    margin: 8px 0;
+    opacity: 0.85;
+    line-height: 1.4;
+}
+
+/* prezzi evidenziati */
+.plan p:first-of-type {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+/* animazione fade-in */
+.plan {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: fadeUp 0.6s forwards;
+}
+
+.plan:nth-child(1) { animation-delay: 0.2s; }
+.plan:nth-child(2) { animation-delay: 0.4s; }
+.plan:nth-child(3) { animation-delay: 0.6s; }
+
+/* --------------------------------------------------
+   CATALOGUE SEARCH
+-------------------------------------------------- */
+
+.catalogue-search {
+    position: relative;
+    z-index: 1; /* sopra l'overlay */
+    margin: 2px auto 0;
+    max-width: 700px;
+    text-align: center;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.search-wrapper {
+    position: relative;
+    margin-top: 20px;
+}
+
+.search-wrapper input[type="text"] {
+    opacity: 0;
+    width: calc(100% - 120px);
+    padding: 10px 15px;
+    border-radius: 6px 0 0 6px;
+    border: 1px solid #555;
+    background-color: #222;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    animation: fadeUp 1s ease forwards;
+    animation-delay: 0.2s;
+}
+
+.search-wrapper select {
+    opacity: 0;
+    width: 100px;
+    padding: 10px;
+    border: 1px solid #555;
+    border-left: 0;
+    border-radius: 0 6px 6px 0;
+    background-color: #333;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    animation: fadeUp 1s ease forwards;
+    animation-delay: 0.2s;
+    
+}
+
+.search-wrapper .livesearch {
+    position: absolute;
+    top: 45px;
+    width: 100%;
+    background-color: #111;
+    border-radius: 6px;
+    max-height: 250px;
+    overflow-y: auto;
+    display: none; /* nascosto di default */
+    z-index: 100;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.6);
+}
+
+/* TITOLI CATALOGUE */
+.catalogue-search h2 {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--viola), var(--viola-soft));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards;
+    animation-delay: 0.2s;
 }
