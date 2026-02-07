@@ -1,285 +1,285 @@
-/* ---------- PALETTE ---------- */
 :root {
-  --bg-main: #0b0b12;
-  --bg-secondary: #141420;
-  --bg-card: #1c1c2b;
+    --viola: #8b5cf6;
+    --viola-dark: #4b2fa6;
+    --viola-soft: #a78bfa;
 
-  --purple-main: #7b3fe4;
-  --purple-light: #a855f7;
-  --purple-hover: #9333ea;
+    --bg-dark: #0b0014;
 
-  --text-main: #ffffff;
-  --text-muted: #b3b3b3;
-
-  --border-soft: rgba(255, 255, 255, 0.1);
+    --glass: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.18);
 }
 
-/* ---------- RESET ---------- */
+/* --------------------------------------------------
+   RESET
+-------------------------------------------------- */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
 }
 
 body {
-  background-color: var(--bg-main);
-  color: var(--text-main);
-  min-height: 100vh;
+    min-height: 100vh;
+    color: white;
+    overflow-x: hidden;
+
+    background:
+        radial-gradient(circle at 15% 25%, rgba(139,92,246,0.30), transparent 45%),
+        radial-gradient(circle at 85% 70%, rgba(167,139,250,0.20), transparent 50%),
+        linear-gradient(160deg, #12001f, #0b0014, #12001f);
+
+    background-size: 200% 200%;
+    animation: auroraMove 40s ease-in-out infinite;
 }
 
-/* ---------- HEADER / NAVBAR ---------- */
-
-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  padding: 20px 40px;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.85), transparent);
-  z-index: 100;
+/* overlay scuro per effetto cinema */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(6, 0, 14, 0.55);
+    pointer-events: none;
+    z-index: 0;
 }
 
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+@keyframes auroraMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-.logo {
-  font-size: 28px;
-  font-weight: bold;
-  color: var(--purple-light);
-  letter-spacing: 1px;
+/* --------------------------------------------------
+   HEADER FLOATING
+-------------------------------------------------- */
+.floating-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    pointer-events: none;
 }
 
+/* nuovo wrapper */
+.floating-header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 18px 70px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* elementi cliccabili */
+.logo-float,
+.menu-float {
+    pointer-events: auto;
+}
+
+/* --------------------------------------------------
+   LOGO
+-------------------------------------------------- */
 .logo-img {
-    height: 150px;
-    width: auto;
+    height: 96px;
+    transition: transform 0.4s ease, filter 0.4s ease;
 }
 
-.nav-links a {
-  margin-left: 25px;
-  color: var(--text-main);
-  text-decoration: none;
-  font-size: 14px;
+.logo-img:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 14px rgba(139,92,246,0.6));
 }
 
-.nav-links a:hover {
-  color: var(--purple-light);
+/* --------------------------------------------------
+   MENU FLOAT
+-------------------------------------------------- */
+.menu-float {
+    background: var(--glass);
+    backdrop-filter: blur(18px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 14px;
 }
 
-/* ---------- HERO / HOME ---------- */
-
-.hero {
-  height: 80vh;
-  padding: 80px 60px;
-  display: flex;
-  align-items: center;
-  background: radial-gradient(circle at top, #2a145f, #0b0b12 70%);
+/* --------------------------------------------------
+   HAMBURGER
+-------------------------------------------------- */
+.menu-wrapper {
+    position: relative;
 }
 
-.hero-content {
-  max-width: 600px;
+.menu-icon {
+    width: 30px;
+    height: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    cursor: pointer;
 }
 
-.hero h1 {
-  font-size: 48px;
-  margin-bottom: 20px;
+.menu-icon span {
+    height: 3px;
+    width: 100%;
+    background: white;
+    border-radius: 4px;
+    transition: all 0.4s cubic-bezier(.68,-0.55,.27,1.55);
 }
 
-.hero p {
-  font-size: 18px;
-  color: var(--text-muted);
+/* hamburger animato */
+.menu-icon.active span:nth-child(1) {
+    transform: rotate(45deg) translateY(8px);
 }
 
-/* ---------- BOTTONI ---------- */
-
-.btn {
-  padding: 12px 26px;
-  border-radius: 4px;
-  border: none;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background 0.3s ease;
+.menu-icon.active span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
 }
 
-.btn-play {
-  background-color: var(--purple-main);
-  color: white;
+.menu-icon.active span:nth-child(3) {
+    transform: rotate(-45deg) translateY(-8px);
 }
 
-.btn-play:hover {
-  background-color: var(--purple-hover);
+/* --------------------------------------------------
+   DROPDOWN MENU
+-------------------------------------------------- */
+.dropdown-menu {
+    position: absolute;
+    top: 62px;
+    right: 0;
+
+    background: var(--glass);
+    backdrop-filter: blur(18px);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+
+    padding: 18px 22px;
+    min-width: 190px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    opacity: 0;
+    transform: translateY(-10px) scale(0.96);
+    pointer-events: none;
+
+    transition: all 0.35s ease;
 }
 
-.btn-secondary {
-  background-color: rgba(255,255,255,0.15);
-  color: white;
+.dropdown-menu.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
 }
 
-.btn-secondary:hover {
-  background-color: rgba(255,255,255,0.25);
+.dropdown-menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    opacity: 0.9;
 }
 
-/* ---------- CATALOGO ---------- */
-
-.catalogo {
-  padding: 120px 40px 40px;
+/* underline glow viola */
+.dropdown-menu a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--viola), var(--viola-soft));
+    transition: width 0.3s ease;
 }
 
-.sezione {
-  margin-bottom: 40px;
+.dropdown-menu a:hover::after {
+    width: 100%;
 }
 
-.sezione h2 {
-  font-size: 22px;
-  margin-bottom: 15px;
+/* --------------------------------------------------
+   CTA
+-------------------------------------------------- */
+.cta {
+    margin-top: 34px;
+    padding: 14px 44px;
+    font-size: 0.95rem;
+
+    border: none;
+    border-radius: 30px;
+
+    background: linear-gradient(135deg, var(--viola), var(--viola-dark));
+    color: white;
+    cursor: pointer;
+
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.card-row {
-  display: flex;
-  gap: 15px;
-  overflow-x: auto;
-  padding-bottom: 10px;
+.cta:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 20px rgba(139,92,246,0.55);
 }
 
-.card {
-  min-width: 180px;
-  background-color: var(--bg-card);
-  border-radius: 6px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* --------------------------------------------------
+   FOOTER
+-------------------------------------------------- */
+.footer {
+    text-align: center;
+    padding: 30px;
+    opacity: 0.55;
+    font-size: 0.85rem;
 }
 
-.card img {
-  width: 100%;
-  height: 260px;
-  object-fit: cover;
+/* --------------------------------------------------
+   HERO-MAIN
+-------------------------------------------------- */
+
+.hero-main {
+    position: relative;
+    z-index: 1;
+
+    min-height: 60vh;
+    padding-top: 140px; /* vicino all'header */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
-.card:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 25px rgba(168, 85, 247, 0.45);
+.hero-main h1 {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: clamp(4rem, 8vw, 7rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+
+    background: linear-gradient(135deg, #ffffff, var(--viola-soft));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-/* ---------- PAGINA CONTENUTO ---------- */
-
-.contenuto-header {
-  display: flex;
-  gap: 40px;
-  padding: 140px 60px 40px;
+.hero-main h1 span {
+    font-size: 0.35em;
+    opacity: 0.6;
 }
 
-.contenuto-header img {
-  width: 260px;
-  border-radius: 10px;
+.hero-main p {
+    margin-top: 12px;
+    font-size: 1.4rem;
+    font-weight: 400;
+    opacity: 0.85;
 }
 
-.contenuto-info h1 {
-  font-size: 36px;
-  margin-bottom: 15px;
-}
-
-.contenuto-info p {
-  color: var(--text-muted);
-  margin-bottom: 20px;
-}
-
-/* ---------- PLAYER ---------- */
-
-.player-container {
-  padding: 120px 40px;
-  display: flex;
-  justify-content: center;
-}
-
-video {
-  width: 100%;
-  max-width: 960px;
-  border-radius: 12px;
-  background: black;
-  box-shadow: 0 0 40px rgba(123, 63, 228, 0.5);
-}
-
-/* ---------- RECENSIONI ---------- */
-
-.recensione {
-  background-color: var(--bg-card);
-  padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 15px;
-}
-
-.recensione strong {
-  color: var(--purple-light);
-}
-
-.recensione p {
-  margin-top: 6px;
-  color: var(--text-muted);
-}
-
-/* ---------- PROFILI / AVATAR ---------- */
-
-.profili {
-  padding: 150px 40px;
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-}
-
-.profilo {
-  text-align: center;
-  cursor: pointer;
-}
-
-.profilo img {
-  width: 120px;
-  height: 120px;
-  border-radius: 10px;
-  border: 3px solid transparent;
-  transition: border 0.3s;
-}
-
-.profilo:hover img {
-  border-color: var(--purple-light);
-}
-
-.profilo span {
-  display: block;
-  margin-top: 10px;
-}
-
-/* ---------- FORM LOGIN / SIGNIN ---------- */
-
-.form-container {
-  max-width: 400px;
-  margin: 160px auto;
-  padding: 30px;
-  background-color: var(--bg-card);
-  border-radius: 10px;
-}
-
-.form-container h2 {
-  margin-bottom: 20px;
-}
-
-.form-container input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border-radius: 4px;
-  border: none;
-  background-color: var(--bg-secondary);
-  color: white;
-}
-
-/* ---------- FOOTER ---------- */
-
-footer {
-  padding: 40px;
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 13px;
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

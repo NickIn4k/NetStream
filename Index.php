@@ -1,13 +1,13 @@
 <?php
     include __DIR__ . '/includes/header.php';
 ?>
-<!-- CONTENUTO PAGINA -->
-<div class="hero">
-    <div class="hero-content">
-        <h1>Benvenuto su NetStream</h1>
-        <p>Streaming interattivo!</p>
-    </div>
-</div>
+
+<section class="hero-main">
+    <h1>
+        NetStream&trade;
+    </h1>
+    <p>Emozioni in ogni click.</p>
+</section>
 
 <?php
     include __DIR__ . '/includes/footer.php';
