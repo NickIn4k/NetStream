@@ -1,5 +1,11 @@
 <?php
 session_start();
+
+if(isset($_SESSION['idUtente']) && isset($_SESSION['nomeUtente'])){
+    header("Location: /../profili/profili.php");
+    exit;
+}
+
 include __DIR__ . '/../includes/header.php';
 
 $msg = "";
@@ -123,9 +129,9 @@ if (!empty($msg)) echo $msg;
             <div class="form-group">
                 <label for="abbonamento">Tipo di abbonamento</label>
                 <select id="abbonamento" name="abbonamento" required>
-                    <option value="Base">Base – 6.99€</option>
-                    <option value="Medium">Medium – 9.99€</option>
-                    <option value="Pro">Pro – 12.99€</option>
+                    <option value="Base">Base - 6.99€</option>
+                    <option value="Medium">Medium - 9.99€</option>
+                    <option value="Pro">Pro - 12.99€</option>
                 </select>
             </div>
 
