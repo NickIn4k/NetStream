@@ -434,3 +434,141 @@ body::after {
     animation: fadeUp 0.8s ease forwards;
     animation-delay: 0.2s;
 }
+
+
+/* -------------------------------
+   SIGN IN
+-------------------------------- */
+
+.signin-main {
+    min-height: 100vh;
+    padding: 160px 20px 80px;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    position: relative;
+    z-index: 1;
+}
+
+.signin-box {
+    width: 480px;
+    max-width: 92%;
+
+    padding: 36px 34px;
+
+    background: var(--glass);
+    backdrop-filter: blur(18px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+
+    box-shadow:
+        0 20px 40px rgba(0,0,0,0.55),
+        inset 0 0 0 1px rgba(255,255,255,0.03);
+}
+
+.signin-box h1 {
+    text-align: center;
+    font-size: 2rem;
+    background: linear-gradient(135deg, var(--viola), var(--viola-soft));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.signin-subtitle {
+    text-align: center;
+    opacity: 0.75;
+    margin-bottom: 24px;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+}
+
+.form-row .form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+}
+
+.form-row .form-group:nth-child(2) input {
+    max-width: 80px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 14px;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+    opacity: 0.9;
+}
+
+.form-group input,
+.form-group select {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(0,0,0,0.35);
+    color: white;
+}
+
+.card-box {
+    margin-top: 22px;
+    padding: 16px;
+    border-radius: 14px;
+
+    background: rgba(255,255,255,0.02);
+    border: 1px dashed rgba(255,255,255,0.08);
+}
+
+.card-box legend {
+    padding: 0 8px;
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+.card-title {
+    font-size: 0.75rem;
+    opacity: 0.7;
+    margin-bottom: 10px;
+}
+
+.note {
+    font-size: 0.75rem;
+    opacity: 0.6;
+    margin-top: 8px;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn-reset {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.signin-footer {
+    margin-top: 18px;
+    text-align: center;
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+.signin-footer a {
+    color: var(--viola-soft);
+    text-decoration: none;
+}
