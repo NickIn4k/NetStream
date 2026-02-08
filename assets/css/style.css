@@ -375,7 +375,21 @@ body::after {
 
 .search-wrapper {
     position: relative;
-    margin-top: 20px;
+    z-index: 5000; /* sopra tutto */
+}
+
+.livesearch {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    width: 100%;
+    max-height: 320px;
+    overflow-y: auto;
+    display: none;
+    z-index: 5001;
+    background-color: #111;
+    border-radius: 6px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.6);
 }
 
 .search-wrapper input[type="text"] {
@@ -406,19 +420,6 @@ body::after {
     animation: fadeUp 1s ease forwards;
     animation-delay: 0.2s;
     
-}
-
-.search-wrapper .livesearch {
-    position: absolute;
-    top: 45px;
-    width: 100%;
-    background-color: #111;
-    border-radius: 6px;
-    max-height: 250px;
-    overflow-y: auto;
-    display: none; /* nascosto di default */
-    z-index: 100;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.6);
 }
 
 /* TITOLI CATALOGUE */
@@ -571,4 +572,60 @@ body::after {
 .signin-footer a {
     color: var(--viola-soft);
     text-decoration: none;
+}
+
+/* -------------------------------
+   Ricerca contenuti
+-------------------------------- */
+
+/* singola riga risultato */
+.result-item {
+    position: relative;
+    z-index: 5001; /* sopra tutto */
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+/* separatore tra righe */
+.result-item:not(:last-child) {
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+/* hover stile streaming */
+.result-item:hover {
+    background-color: rgba(255,255,255,0.08);
+}
+
+/* copertina verticale */
+.result-cover {
+    width: 42px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
+    background-color: #333;
+}
+
+/* titolo */
+.result-title {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.livesearch::-webkit-scrollbar {
+    width: 6px;
+}
+
+.livesearch::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.2);
+    border-radius: 3px;
 }
