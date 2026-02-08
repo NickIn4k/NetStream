@@ -365,7 +365,7 @@ body::after {
 
 .catalogue-search {
     position: relative;
-    z-index: 1; /* sopra l'overlay */
+    z-index: 2; /* sopra l'overlay */
     margin: 2px auto 0;
     max-width: 700px;
     text-align: center;
@@ -386,7 +386,7 @@ body::after {
     max-height: 320px;
     overflow-y: auto;
     display: none;
-    z-index: 5001;
+    z-index: 2;
     background-color: #111;
     border-radius: 6px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.6);
