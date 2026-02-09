@@ -629,3 +629,30 @@ body::after {
     background: rgba(255,255,255,0.2);
     border-radius: 3px;
 }
+
+/* -------------------------------
+   Messaggi di successo/errore
+-------------------------------- */
+
+.msg-wrapper {
+    margin-bottom: 1rem;
+}
+
+.msg {
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+.msg.success {
+    background: rgba(0, 200, 100, 0.15);
+    color: #00c864;
+    border: 1px solid rgba(0, 200, 100, 0.4);
+}
+
+.msg.error {
+    background: rgba(220, 60, 60, 0.15);
+    color: #ff5a5a;
+    border: 1px solid rgba(220, 60, 60, 0.4);
+}

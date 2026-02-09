@@ -22,7 +22,7 @@
         $pwd = $_POST['password'];
 
         if (empty($login) || empty($pwd)) {
-            $msg = "<p style='color:red'>Inserisci username/email e password.</p>";
+            $msg = "<div class='msg error'>Inserisci username/email e password.</div>";
         } else {
             //Recupero utente
             $stmt = $conn->prepare(" SELECT idUtente, nomeUtente, password FROM Utente WHERE nomeUtente = ? OR email = ?");
@@ -55,15 +55,15 @@
                         header("Location: /profili/profili.php");
                         exit;
                     } else {
-                        $msg = "<p style='color:red'>Sottoscrizione non attiva o scaduta.</p>";
+                        $msg = "<div class='msg error'>Sottoscrizione non attiva o scaduta.</div>";
                     }
 
                     $stmt_sub->close();
                 } else {
-                    $msg = "<p style='color:red'>Password errata.</p>";
+                    $msg = "<div class='msg error'>Password errata.</div>";
                 }
             } else {
-                $msg = "<p style='color:red'>Utente non trovato.</p>";
+                $msg = "<div class='msg error'>Utente non trovato.</div>";
             }
 
             $stmt->close();
@@ -78,6 +78,11 @@
 
 <section class="signin-main">
     <div class="signin-box">
+        <?php if (!empty($msg)): ?>
+            <div class="msg-wrapper">
+                <?= $msg ?>
+            </div>
+        <?php endif; ?>
 
         <h1>Accedi</h1>
         <p class="signin-subtitle">Bentornato su NetStream</p>

@@ -57,10 +57,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['nuovoAbbonamento'])) 
     $stmt_upd->bind_param("ii", $idAbbonamentoNuovo, $idUtente);
 
     if ($stmt_upd->execute()) {
-        $msg = "<p style='color:green'>Abbonamento aggiornato con successo.</p>";
+        $msg = "<div class='msg success'>Abbonamento aggiornato con successo.</div>";
         header("Refresh:1"); //Ricarica la pagina
     } else {
-        $msg = "<p style='color:red'>Errore nel cambio abbonamento.</p>";
+        $msg = "<div class='msg error'>Errore nel cambio abbonamento.</div>";
     }
 
     $stmt_upd->close();
@@ -73,6 +73,11 @@ $conn->close();
 
 <section class="signin-main">
     <div class="signin-box">
+        <?php if (!empty($msg)): ?>
+            <div class="msg-wrapper">
+                <?= $msg ?>
+            </div>
+        <?php endif; ?>
 
         <h1>Il tuo account</h1>
         <p class="signin-subtitle">Dettagli profilo e abbonamento</p>
