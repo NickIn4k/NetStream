@@ -708,7 +708,7 @@ body::after {
     border-radius: 12px;
     border: 3px solid transparent;
 }
-
+.profile-card.selected img,
 .profile-card:hover img {
     border-color: #a855f7;
 }
@@ -734,16 +734,24 @@ body::after {
     border: none;
 }
 
-.btn.primary {
+.btn.primary,
+.btn.secondary{
     background: #a855f7;
     color: #000;
     z-index: 1;
 }
 
-.btn.secondary {
-    background: transparent;
-    border: 1px solid #777;
-    color: #777;
+/* quando un profilo è selezionato */
+.profiles-actions.active .btn.secondary {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+/* disabled visivamente coerente */
+.profiles-actions .btn.secondary:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
 }
 
 .btn.secondary:disabled {
@@ -885,21 +893,42 @@ body::after {
 
     display: flex;
     align-items: center;
+    gap: 12px;
 
-    gap: 10px;
-    padding: 8px 12px;
+    padding: 10px 14px;
 
     width: fit-content;
+    max-width: calc(100% - 40px);
+    flex-wrap: wrap;
+
     margin: 12px auto 0;
 
     background: rgba(15, 15, 15, 0.88);
     backdrop-filter: blur(6px);
 
-    border-radius: 12px;
+    border-radius: 14px;
     border: 1px solid rgba(255,255,255,0.08);
 
     box-shadow: 0 6px 18px rgba(0,0,0,0.55);
 }
+
+.profile-actions-bar input,
+.profile-actions-bar select {
+    height: 40px;
+    padding: 0 14px;
+
+    border-radius: 8px;
+    border: none;
+
+    background: #111;
+    color: #fff;
+
+    font-size: 14px;
+    line-height: 40px;
+
+    outline: none;
+}
+
 
 .btnAvatar {
     height: 40px;

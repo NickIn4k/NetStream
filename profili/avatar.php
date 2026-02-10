@@ -100,6 +100,20 @@
                 <input type="text" id="nomeProfilo" name="nomeProfilo" maxlength="50" required placeholder="Nome profilo">
             </div>
 
+            <div class="profile-name-wrapper">
+                <input type="number" id="eta" name="eta" min="8" max="120" required>
+            </div>
+
+            <select name="lingua" id="lingua" required>
+                <option value="">Lingua</option>
+                <option value="it">Italiano</option>
+                <option value="en">Inglese</option>
+                <option value="es">Spagnolo</option>
+                <option value="fr">Francese</option>
+            </select>
+
+            <?=isset($_GET['idProfilo']) ? '<input type="hidden" name="idProfilo" value="' . htmlspecialchars($_GET['idProfilo']) . '">' : '';?>
+            
             <button type="submit" class="btnAvatar">
                 Crea profilo
             </button>

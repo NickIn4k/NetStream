@@ -2,8 +2,8 @@
 
     session_start();
 
-    if(!isset($_SESSION['profilo'])) {
-        header("Location: /../profili/profili.php");
+    if(!isset($_SESSION['idProfilo'])) {
+        header("Location: /profili/profili.php");
         exit;
     }
 ?>
