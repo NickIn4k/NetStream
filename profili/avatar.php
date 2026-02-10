@@ -13,7 +13,7 @@
 
     $idUtente = $_SESSION['idUtente'];
 
-    /* punti utente */
+    // Punti 
     $stmt = $conn->prepare("SELECT bet271Points FROM Utente WHERE idUtente = ?");
     $stmt->bind_param("i", $idUtente);
     $stmt->execute();
@@ -22,7 +22,7 @@
     $puntiUtente = $user['bet271Points'] ?? 0;
     $stmt->close();
 
-    /* avatar */
+    // Avatar
     $stmt = $conn->prepare("SELECT * FROM Avatar ORDER BY puntiSblocco ASC");
     $stmt->execute();
     $result = $stmt->get_result();
@@ -50,13 +50,6 @@
     </p>
 
     <form method="post" action="salvaAvatar.php" class="create-profile-form">
-
-        <!-- NOME PROFILO -->
-        <div class="profile-name-wrapper">
-            <label for="nomeProfilo">Nome profilo</label>
-            <input type="text" id="nomeProfilo" name="nomeProfilo" maxlength="50" required placeholder="Es. Marco, Kids, Anime">
-        </div>
-
         <!-- AVATAR STANDARD -->
         <section class="avatar-section">
             <h2>Avatar standard</h2>
@@ -102,11 +95,16 @@
             </div>
         </section>
 
-        <div class="form-actions">
-            <button type="submit" class="btn primary">
+        <div class="profile-actions-bar">
+            <div class="profile-name-wrapper">
+                <input type="text" id="nomeProfilo" name="nomeProfilo" maxlength="50" required placeholder="Nome profilo">
+            </div>
+
+            <button type="submit" class="btnAvatar">
                 Crea profilo
             </button>
         </div>
+
     </form>
 </main>
 
