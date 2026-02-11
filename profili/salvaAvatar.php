@@ -23,9 +23,8 @@
     $idAvatar    = (int) $_POST['idAvatar'];
 
     // Valori di default (puoi cambiarli più avanti)
-    $linguaProfilo = 'it';
-    $etaProfilo    = 18;
-
+    $linguaProfilo = $_POST['lingua'] ?? 'it';
+    $etaProfilo    = isset($_POST['eta']) ? (int)$_POST['eta'] : 18;
 
     $idProfilo = $_POST['idProfilo'] ?? null;
 
@@ -82,13 +81,6 @@
     if (!$stmt->execute()) {
         die("Errore inserimento profilo: " . $stmt->error);
     }
-
-    // Recupero idProfilo appena creato
-    $idProfilo = $stmt->insert_id;
-
-    // Salvataggio in sessione
-    $_SESSION['idProfilo']   = $idProfilo;
-    $_SESSION['nomeProfilo'] = $nomeProfilo;
 
     $stmt->close();
     $conn->close();

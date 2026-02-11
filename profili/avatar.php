@@ -39,6 +39,22 @@
     }
     $stmt->close();
 
+    // Dettagli profilo
+    $nomeOld;
+    $linguaOld;
+    $etaOld;
+    if(isset($_GET['idProfilo'])){
+        $stmt = $conn->prepare("SELECT nomeProfilo, linguaProfilo, etaProfilo FROM Profilo WHERE idProfilo = ?");
+        $stmt->bind_param("i", $_GET['idProfilo']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $rs = $result->fetch_assoc();
+        $nomeOld = $rs['nomeProfilo'];
+        $linguaOld = $rs['linguaProfilo'];
+        $etaOld = $rs['etaProfilo'];
+    }
+
     include __DIR__ . '/../includes/header.php';
 ?>
 
@@ -97,20 +113,21 @@
 
         <div class="profile-actions-bar">
             <div class="profile-name-wrapper">
-                <input type="text" id="nomeProfilo" name="nomeProfilo" maxlength="50" required placeholder="Nome profilo">
+                <input type="text" id="nomeProfilo" name="nomeProfilo" maxlength="50" required placeholder="Nome profilo" value = <?= isset($nomeOld) ? $nomeOld : ''?>>
             </div>
 
             <div class="profile-name-wrapper">
-                <input type="number" id="eta" name="eta" min="8" max="120" required>
+                <input type="number" id="eta" name="eta" min="8" max="120" required value = <?= isset($etaOld) ? $etaOld : 8?>>
             </div>
 
             <select name="lingua" id="lingua" required>
                 <option value="">Lingua</option>
-                <option value="it">Italiano</option>
-                <option value="en">Inglese</option>
-                <option value="es">Spagnolo</option>
-                <option value="fr">Francese</option>
+                <option value="it" <?= ($linguaOld ?? '') === 'it' ? 'selected' : '' ?>>Italiano</option>
+                <option value="en" <?= ($linguaOld ?? '') === 'en' ? 'selected' : '' ?>>Inglese</option>
+                <option value="es" <?= ($linguaOld ?? '') === 'es' ? 'selected' : '' ?>>Spagnolo</option>
+                <option value="fr" <?= ($linguaOld ?? '') === 'fr' ? 'selected' : '' ?>>Francese</option>
             </select>
+
 
             <?=isset($_GET['idProfilo']) ? '<input type="hidden" name="idProfilo" value="' . htmlspecialchars($_GET['idProfilo']) . '">' : '';?>
             
