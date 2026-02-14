@@ -1,4 +1,6 @@
 <?php
+    session_start();
+    unset($_SESSION['idProfilo']);
     include __DIR__ . '/includes/header.php';
 ?>
 

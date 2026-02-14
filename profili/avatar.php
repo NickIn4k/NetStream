@@ -129,7 +129,7 @@
             </select>
 
 
-            <?=isset($_GET['idProfilo']) ? '<input type="hidden" name="idProfilo" value="' . htmlspecialchars($_GET['idProfilo']) . '">' : '';?>
+            <?= isset($_GET['idProfilo']) ? '<input type="hidden" name="idProfilo" value="' . htmlspecialchars($_GET['idProfilo']) . '">' : ''; ?>
             
             <button type="submit" class="btnAvatar">
                 Crea profilo

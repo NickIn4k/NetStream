@@ -40,6 +40,7 @@
             <div class="dropdown-menu" id="menu">
                 <?php 
                     if (isset($_SESSION['idUtente']) && isset($_SESSION['nomeUtente'])) {
+                        echo "<a href='/profili/profili.php'>Profili</a>";    
                         echo "<a href='/catalogo/catalogo.php'>Catalogo</a>";
                         echo "<a href='/user/dettagliUser.php'>Account</a>";
                         echo "<a href='/auth/logout.php'>Logout</a>";

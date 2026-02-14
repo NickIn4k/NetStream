@@ -929,7 +929,6 @@ body::after {
     outline: none;
 }
 
-
 .btnAvatar {
     height: 40px;
     padding: 0 18px;
@@ -956,4 +955,78 @@ body::after {
 
 .btnAvatar:active {
     transform: scale(0.97);
+}
+
+/* =========================
+   CATALOGO
+========================= */
+
+.catalogue-page {
+    z-index: 1;
+    padding: 20px;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.catalogue-row {
+    z-index: 1;
+    margin-bottom: 40px;
+}
+
+.catalogue-row h2 {
+    position: relative;
+    z-index: 1;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    border-left: 5px solid #a100c2;
+    padding-left: 10px;
+    text-transform: uppercase;
+}
+
+.catalogue-slider {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 15px;
+    padding-bottom: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #a100c2 #333;
+}
+
+.catalogue-slider::-webkit-scrollbar {
+    height: 8px;
+}
+
+.catalogue-slider::-webkit-scrollbar-track {
+    background: #333;
+}
+
+.catalogue-slider::-webkit-scrollbar-thumb {
+    background-color: #a100c2;
+    border-radius: 4px;
+}
+
+.catalogue-card {
+    position: relative;
+    z-index: 1;
+    flex: 0 0 auto;
+    width: 180px;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    background-color: #222;
+}
+
+.catalogue-card img {
+    width: 100%;
+    display: block;
+    border-radius: 8px;
+}
+
+.catalogue-card:hover {
+    transform: scale(1.08);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.7);
 }
