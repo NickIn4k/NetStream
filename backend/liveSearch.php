@@ -1,5 +1,6 @@
 <?php
-    header('Content-Type: text/html; charset=utf-8');
+    session_start();
+    $idProfilo = $_SESSION['idProfilo'] ?? null;
 
     $c = $_GET['c'] ?? '';
     $option = $_GET['option'] ?? 'titoloContenuto';
@@ -20,10 +21,19 @@
     }
 
     $sql = "
-        SELECT titoloContenuto, pathCopertina
-        FROM contenuto
-        WHERE $option LIKE CONCAT(?, '%')
-        LIMIT 10
+    SELECT c.titoloContenuto, c.pathCopertina
+    FROM contenuto c
+    WHERE $option LIKE CONCAT(?, '%') 
+        AND (c.ratingEta <= (
+            SELECT p.etaProfilo
+            FROM profilo p
+            WHERE p.idProfilo = ?
+        ) OR (
+            SELECT p.etaProfilo
+            FROM profilo p
+            WHERE p.idProfilo = ?
+        ) IS NULL)
+    LIMIT 10;
     ";
 
     $stmt = $conn->prepare($sql);
@@ -33,7 +43,7 @@
         exit;
     }
 
-    $stmt->bind_param("s", $c);
+    $stmt->bind_param("sii", $c, $idProfilo, $idProfilo);
     $stmt->execute();
     $result = $stmt->get_result();
 

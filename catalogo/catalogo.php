@@ -40,11 +40,11 @@
 
     // Funzione CAST() mysql per rimuovere subito il simbolo + e converire in numero intero
     $stmt = $conn->prepare("
-        SELECT DISTINCT g.nomeGenere, c.idContenuto, c.titoloContenuto, c.pathCopertina, CAST(REPLACE(c.ratingEta, '+', '') AS UNSIGNED) AS ratingMinimo
+        SELECT DISTINCT g.nomeGenere, c.idContenuto, c.titoloContenuto, c.pathCopertina, c.ratingEta
         FROM Genere g
         JOIN ContenutoGenere cg ON g.idGenere = cg.idGenere
         JOIN Contenuto c ON cg.idContenuto = c.idContenuto
-        WHERE CAST(REPLACE(c.ratingEta, '+', '') AS UNSIGNED) <= ?
+        WHERE c.ratingEta <= ?
         ORDER BY g.nomeGenere, c.dataUscita DESC
     ");
 
