@@ -3,6 +3,7 @@
     $idProfilo = $_SESSION['idProfilo'] ?? null;
 
     $c = $_GET['c'] ?? '';
+    $searchFlag = $_GET['searchFlag'] ?? '';
     $option = $_GET['option'] ?? 'titoloContenuto';
 
     if ($c == '') {
@@ -21,7 +22,7 @@
     }
 
     $sql = "
-    SELECT c.titoloContenuto, c.pathCopertina
+    SELECT c.idContenuto, c.titoloContenuto, c.pathCopertina
     FROM contenuto c
     WHERE $option LIKE CONCAT(?, '%') 
         AND (c.ratingEta <= (
@@ -51,12 +52,21 @@
         echo "<div class='no-result'>Nessun risultato</div>";
     } else {
         while ($row = $result->fetch_assoc()) {
-            echo "
-                <div class='result-item'>
-                    <img src='{$row['pathCopertina']}' alt='' class='result-cover'>
-                    <span class='result-title'>{$row['titoloContenuto']}</span>
-                </div>
-            ";
+            if (isset($searchFlag) && $searchFlag == 'catalogo') {
+                echo "
+                    <a href='/catalogo/contenuto.php?idContenuto={$row['idContenuto']}' class='result-item'>
+                        <img src='{$row['pathCopertina']}' class='result-cover'>
+                        <span class='result-title'>{$row['titoloContenuto']}</span>
+                    </a>
+                ";
+            } else {
+                echo "
+                    <div class='result-item'>
+                        <img src='{$row['pathCopertina']}' alt='' class='result-cover'>
+                        <span class='result-title'>{$row['titoloContenuto']}</span>
+                    </div>
+                ";
+            }
         }
     }
 

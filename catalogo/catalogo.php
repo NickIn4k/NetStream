@@ -38,7 +38,6 @@
     // Contenuti in base al genere
     $contenutiPerGenere = [];
 
-    // Funzione CAST() mysql per rimuovere subito il simbolo + e converire in numero intero
     $stmt = $conn->prepare("
         SELECT DISTINCT g.nomeGenere, c.idContenuto, c.titoloContenuto, c.pathCopertina, c.ratingEta
         FROM Genere g
@@ -63,7 +62,10 @@
 
 <section class="catalogue-search">
     <br><br>
-    <?php include __DIR__ . '/../includes/cercaCatalogo.php'; ?>
+    <?php 
+        $searchFlag = "catalogo";
+        include __DIR__ . '/../includes/cercaCatalogo.php'; 
+    ?>
 </section>
 <br>
 <main class="catalogue-page">
