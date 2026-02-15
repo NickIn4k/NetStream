@@ -99,19 +99,30 @@
     </section>
 
     <!-- NAV STAGIONI -->
-    <?php if ($contenuto['tipoContenuto'] === 'Serie'): ?>
-        <section class="contenuto-nav">
-            <?php foreach ($stagioni as $stagione): ?>
-                <button class="nav-btn" data-stagione="<?= $stagione['idStagione'] ?>">
-                    Stagione <?= $stagione['numeroStagione'] ?>
-                </button>
-            <?php endforeach; ?>
-
-            <button class="nav-btn" data-stagione="0">
-                Tutte le stagioni
-            </button>
-        </section>
-    <?php endif; ?>
+    <section class='contenuto-nav'>
+        <?php 
+            if ($contenuto['tipoContenuto'] === 'Serie'){
+                //Attributo data-stagione ad ogni button per id stagione
+                foreach ($stagioni as $stagione){
+                    echo"
+                        <button class='nav-btn' data-stagione='{$stagione['idStagione']}'>
+                            Stagione {$stagione['numeroStagione']}
+                        </button>
+                    ";
+                }
+                echo "
+                    <button class='nav-btn' data-stagione='0'>
+                        Tutte le stagioni
+                    </button>
+                ";
+                echo "
+                    <button class='nav-btn' data-stagione='-1'>
+                        Contenuti extra
+                    </button>
+                ";
+            }
+        ?>
+    </section>
 
     <hr class="contenuto-divider">
 
@@ -148,41 +159,4 @@
 
 <?php include __DIR__ . '/../includes/footer.php'; ?>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const form = document.getElementById('reviewForm');
-        const messageDiv = document.getElementById('reviewMessage');
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const formData = new FormData(form);
-            const xhr = new XMLHttpRequest();
-
-            xhr.onreadystatechange = function() {
-                if(xhr.readyState === 4){
-                    if(xhr.status === 200){
-                        try {
-                            const result = JSON.parse(xhr.responseText);
-                            messageDiv.textContent = result.message;
-                            messageDiv.style.color = result.success ? 'green' : 'red';
-
-                            if(result.success)
-                                form.reset();
-                            
-                        } catch(e) {
-                            messageDiv.textContent = 'Risposta non valida dal server';
-                            messageDiv.style.color = 'red';
-                        }
-                    } else {
-                        messageDiv.textContent = 'Errore di connessione';
-                        messageDiv.style.color = 'red';
-                    }
-                }
-            };
-
-            xhr.open('POST', '/recensioni/recensione.php', true);
-            xhr.send(formData);
-        });
-    });
-</script>
+<script src="/assets/js/recensione.js"></script>
