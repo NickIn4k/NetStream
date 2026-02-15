@@ -124,11 +124,65 @@
     <section class="contenuto-review">
         <h3>Scrivi una recensione</h3>
 
-        <textarea class="review-textarea"
-                  placeholder="Scrivi cosa ne pensi..."></textarea>
+        <form id="reviewForm">
+            <!-- Campo nascosto idContenuto -->
+            <input type="hidden" name="idContenuto" value="<?= htmlspecialchars($_GET['idContenuto']) ?>">
 
-        <button class="cta">Invia recensione</button>
+            <!-- Voto -->
+            <select name="voto" id="voto" required>
+                <option value="">Valutazione</option>
+                <?php for($i=1; $i<=5; $i++)
+                    echo "<option value='$i'>$i</option>";
+                ?>
+            </select>
+
+            <!-- Commento -->
+            <textarea name="commento" class="review-textarea" placeholder="Scrivi cosa ne pensi..." required></textarea>
+
+            <button type="submit" class="cta">Invia recensione</button>
+        </form>
+
+        <div id="reviewMessage" style="margin-top:12px;"></div>
     </section>
 </main>
 
 <?php include __DIR__ . '/../includes/footer.php'; ?>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('reviewForm');
+        const messageDiv = document.getElementById('reviewMessage');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            const xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState === 4){
+                    if(xhr.status === 200){
+                        try {
+                            const result = JSON.parse(xhr.responseText);
+                            messageDiv.textContent = result.message;
+                            messageDiv.style.color = result.success ? 'green' : 'red';
+
+                            if(result.success)
+                                form.reset();
+                            
+                        } catch(e) {
+                            messageDiv.textContent = 'Risposta non valida dal server';
+                            messageDiv.style.color = 'red';
+                        }
+                    } else {
+                        messageDiv.textContent = 'Errore di connessione';
+                        messageDiv.style.color = 'red';
+                    }
+                }
+            };
+
+            xhr.open('POST', '/recensioni/recensione.php', true);
+            xhr.send(formData);
+        });
+    });
+</script>

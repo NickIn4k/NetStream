@@ -1234,3 +1234,73 @@ a.result-item {
 .contenuto-review .cta {
     margin-top: 16px;
 }
+
+/* -------------------------
+   FORM RECENSIONE
+------------------------- */
+
+.contenuto-review form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Label */
+.contenuto-review label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+/* Select voto */
+.contenuto-review select {
+    width: 120px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: none;
+    background-color: #1e1e1e;
+    color: #fff;
+    font-size: 0.95rem;
+    outline: none;
+    cursor: pointer;
+}
+
+/* Effetto focus per select */
+.contenuto-review select:focus {
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.4);
+}
+
+/* Placeholder */
+.review-textarea::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* Focus */
+.review-textarea:focus {
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.4);
+}
+
+/* Pulsante invio */
+.contenuto-review .cta {
+    width: max-content;
+    padding: 10px 22px;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(90deg, var(--viola), var(--viola-soft));
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover e click */
+.contenuto-review .cta:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.contenuto-review .cta:active {
+    transform: translateY(0);
+    opacity: 1;
+}
