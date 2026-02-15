@@ -105,7 +105,7 @@
                 //Attributo data-stagione ad ogni button per id stagione
                 foreach ($stagioni as $stagione){
                     echo"
-                        <button class='nav-btn' data-stagione='{$stagione['idStagione']}'>
+                        <button class='nav-btn season-btn' data-stagione='{$stagione['idStagione']}'>
                             Stagione {$stagione['numeroStagione']}
                         </button>
                     ";
