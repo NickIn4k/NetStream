@@ -155,3 +155,4 @@
 <?php include __DIR__ . '/../includes/footer.php'; ?>
 
 <script src="/assets/js/recensione.js"></script>
+<script src="/assets/js/stagioni.js"></script>

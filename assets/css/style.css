@@ -1304,3 +1304,28 @@ a.result-item {
     transform: translateY(0);
     opacity: 1;
 }
+
+
+/* -------------------------
+   EPISODI STAGIONI
+------------------------- */
+
+.episode-card {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#111;
+    padding:14px;
+    border-radius:10px;
+    margin-bottom:10px;
+}
+
+.episode-info h4 {
+    margin:0;
+    font-size:1rem;
+}
+
+.episode-info p {
+    margin:4px 0 0;
+    color:#aaa;
+}
