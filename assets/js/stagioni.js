@@ -9,15 +9,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //Funzione principale AJAX
     function loadSeason(id) {
-
         container.innerHTML = "Caricamento...";
-
         let url;
 
         if (id == -1) {
-            url = "/catalogo/ajaxExtra.php?idContenuto=" + encodeURIComponent(idContenuto);
+            url = "/backend/ajaxExtra.php?idContenuto=" + encodeURIComponent(idContenuto);
         } else {
-            url = "/catalogo/ajaxEpisodi.php?idStagione=" + encodeURIComponent(id);
+            url = "/backend/ajaxEpisodi.php?idStagione=" + encodeURIComponent(id);
         }
 
         const xhr = new XMLHttpRequest();
@@ -49,5 +47,4 @@ document.addEventListener("DOMContentLoaded", () => {
     //Caricamento automatico stagione 1
     buttons[0].classList.add("active");
     loadSeason(buttons[0].dataset.stagione);
-
 });

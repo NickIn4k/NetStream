@@ -77,8 +77,7 @@
     <!-- BANNER -->
     <section class="contenuto-banner">
         <div class="banner-overlay"></div>
-        <img src="<?= htmlspecialchars($contenuto['pathBanner']) ?>" 
-             alt="Banner di <?= htmlspecialchars($contenuto['titoloContenuto']) ?>">
+        <img src="<?= htmlspecialchars($contenuto['pathBanner']) ?>" alt="Banner di <?= htmlspecialchars($contenuto['titoloContenuto']) ?>">
     </section>
 
     <!-- INFO CONTENUTO -->
@@ -105,7 +104,7 @@
                 //Attributo data-stagione ad ogni button per id stagione
                 foreach ($stagioni as $stagione){
                     echo"
-                        <button class='nav-btn season-btn' data-stagione='{$stagione['idStagione']}'>
+                        <button class='nav-btn' data-stagione='{$stagione['idStagione']}'>
                             Stagione {$stagione['numeroStagione']}
                         </button>
                     ";
@@ -136,7 +135,7 @@
 
             <!-- Voto -->
             <select name="voto" id="voto" required>
-                <option value="">Valutazione</option>
+                <option value="">Stelle</option>
                 <?php for($i=1; $i<=5; $i++)
                     echo "<option value='$i'>$i</option>";
                 ?>
