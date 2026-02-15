@@ -111,11 +111,6 @@
                     ";
                 }
                 echo "
-                    <button class='nav-btn' data-stagione='0'>
-                        Tutte le stagioni
-                    </button>
-                ";
-                echo "
                     <button class='nav-btn' data-stagione='-1'>
                         Contenuti extra
                     </button>
