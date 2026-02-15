@@ -1035,3 +1035,202 @@ a.result-item {
     transform: scale(1.08);
     box-shadow: 0 5px 20px rgba(0,0,0,0.7);
 }
+
+/* =========================
+   PAGINA CONTENUTO
+========================= */
+
+.contenuto-page {
+    color: #fff;
+    font-family: Arial, sans-serif;
+    z-index: 1;
+}
+
+/* -------------------------
+   BANNER
+------------------------- */
+
+.contenuto-banner {
+    position: relative;
+    height: 55vh;
+    min-height: 420px;
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+
+.contenuto-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.banner-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.15) 0%,
+        rgba(0,0,0,0.6) 70%,
+        rgba(0,0,0,1) 100%
+    );
+    z-index: 1;
+}
+
+/* -------------------------
+   INFO CONTENUTO
+------------------------- */
+
+.contenuto-info {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    z-index: 1;
+}
+
+.contenuto-title {
+    position: relative;
+    font-size: 3.2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    z-index: 1;
+}
+
+.contenuto-description {
+    max-width: 760px;
+    font-size: 1.3rem;
+    line-height: 1.6;
+    opacity: 0.9;
+    margin-bottom: 18px;
+    z-index: 1;
+}
+
+.contenuto-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 1.1rem;
+    opacity: 0.85;
+    z-index: 1;
+    font-style: italic;
+}
+
+.contenuto-meta .dot {
+    opacity: 0.6;
+}
+
+/* -------------------------
+   NAV STAGIONI
+------------------------- */
+
+.contenuto-nav {
+    max-width: 1200px;
+    margin: 40px auto 20px;
+    padding: 0 24px;
+    display: flex;
+    gap: 26px;
+    z-index: 1;
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    opacity: 0.85;
+    position: relative;
+    padding-bottom: 6px;
+    z-index: 1;
+}
+
+.nav-btn::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--viola), var(--viola-soft));
+    transition: width 0.3s ease;
+    z-index: 1;
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+    opacity: 1;
+}
+
+.nav-btn:hover::after,
+.nav-btn.active::after {
+    width: 100%;
+}
+
+/* -------------------------
+   DIVIDER
+------------------------- */
+
+.contenuto-divider {
+    max-width: 1200px;
+    margin: 24px auto;
+    border: none;
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+    z-index: 1;
+}
+
+/* -------------------------
+   CONTENUTO DINAMICO
+------------------------- */
+
+.contenuto-dynamic {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 24px;
+    min-height: 200px;
+    z-index: 1;
+}
+
+/* -------------------------
+   RECENSIONI
+------------------------- */
+
+.contenuto-review {
+    position: relative;
+    max-width: 800px;
+    margin: 80px auto;
+    padding: 0 24px;
+    z-index: 1;
+}
+
+.contenuto-review h3 {
+    font-size: 1.4rem;
+    margin-bottom: 14px;
+    z-index: 1;
+}
+
+.review-textarea {
+    width: 100%;
+    min-height: 140px;
+    padding: 14px;
+    border-radius: 10px;
+    border: none;
+    resize: vertical;
+    background-color: #1e1e1e;
+    color: #fff;
+    font-size: 0.95rem;
+    outline: none;
+    z-index: 1;
+}
+
+.review-textarea:focus {
+    box-shadow: 0 0 0 2px rgba(139,92,246,0.4);
+}
+
+.review-textarea::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.contenuto-review .cta {
+    margin-top: 16px;
+}
