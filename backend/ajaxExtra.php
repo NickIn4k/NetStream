@@ -25,7 +25,7 @@ echo "
                 <h4>Trailer ufficiale</h4>
             </div>
         </div>
-        <a href='{$row['pathContenuto']}' class='watch-btn'>Guarda</a>
+        <a href='/player/player.php?id={$_GET['idContenuto']}&trailer=1' class='watch-btn'>Guarda</a>
     </div>
 ";
 

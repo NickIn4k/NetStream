@@ -13,6 +13,9 @@
         exit;
     }
 
+    // Per semplificare il redirect in altre pagine
+    $_SESSION['idContenuto'] = $idContenuto;
+
     // Recupero contenuto
     $sql = "
         SELECT c.titoloContenuto, c.descrizioneContenuto, c.regista, 

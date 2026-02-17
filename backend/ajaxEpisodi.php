@@ -10,7 +10,7 @@ if (!$idStagione)
     exit;
 
 $stmt = $conn->prepare("
-    SELECT titoloEpisodio, numeroEpisodio, durataEpisodio, pathEpisodio
+    SELECT idEpisodio, titoloEpisodio, numeroEpisodio, durataEpisodio, pathEpisodio
     FROM episodio
     WHERE idStagione = ?
     ORDER BY numeroEpisodio
@@ -29,9 +29,8 @@ while ($row = $result->fetch_assoc()) {
                     <p>{$row['durataEpisodio']} min</p>
                 </div>
             </div>
-            <a href='{$row['pathEpisodio']}' class='watch-btn'>Guarda</a>
+            <a href='/player/player.php?id={$row['idEpisodio']}' class='watch-btn'>Guarda</a>
         </div>
-        
     ";
 }
 
