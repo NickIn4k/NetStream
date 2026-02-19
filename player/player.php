@@ -24,7 +24,7 @@
         }
 
         $stmt = $conn->prepare("
-            SELECT titoloContenuto, pathContenuto AS pathEpisodio
+            SELECT titoloContenuto, pathContenuto AS pathEpisodio, tipoContenuto
             FROM Contenuto
             WHERE idContenuto = ?
         ");
@@ -40,7 +40,7 @@
 
         $stmt = $conn->prepare("
             SELECT e.titoloEpisodio, e.numeroEpisodio, e.durataEpisodio, e.pathEpisodio, 
-                s.numeroStagione, c.titoloContenuto
+                s.numeroStagione, c.titoloContenuto, c.tipoContenuto
             FROM Episodio e
             INNER JOIN Stagione s ON e.idStagione = s.idStagione
             INNER JOIN Contenuto c ON s.idSerie = c.idContenuto
@@ -78,7 +78,17 @@
     </div>
 
     <div class="video-wrapper">
-        <video controls autoplay class="video-player" id="videoPlayer" controlsList="nodownload">
+        <video 
+          controls autoplay 
+          class="video-player" 
+          id="videoPlayer" 
+          controlsList="nodownload"
+          data-id-contenuto="<?= $_SESSION['idContenuto'] ?>"
+          data-id-profilo="<?= $_SESSION['idProfilo'] ?>"
+          data-tipo-contenuto="<?= $episodio['tipoContenuto'] ?>" 
+          data-stagione="<?= isset($episodio['numeroStagione']) ? $episodio['numeroStagione'] : null ?>" 
+          data-episodio="<?= isset($episodio['numeroEpisodio']) ? $episodio['numeroEpisodio'] : null ?>"
+        >
             <source src="<?= htmlspecialchars($episodio['pathEpisodio']) ?>" type="video/mp4">
             Il tuo browser non supporta il video.
         </video>

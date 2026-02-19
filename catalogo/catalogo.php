@@ -104,6 +104,49 @@
             echo '</div>';
             echo '</section>';
         }
+
+        // Leggi cookie "continua a guardare" 
+        $continuaCookie = $_COOKIE['continuaAGuardare'] ?? '[]';
+        $continuaAll = json_decode($continuaCookie, true) ?: [];
+
+        // Filtra per il profilo corrente
+        $continuaProfilo = [];
+        foreach ($continuaAll as $c) {
+            if (isset($c['idProfilo']) && $c['idProfilo'] == $idProfilo)
+                $continuaProfilo[] = $c;
+        }
+
+        if ($continuaProfilo){
+            echo '<section class="catalogue-row">';
+            echo '<h2>Continua a guardare</h2>';
+            echo '<div class="catalogue-slider">';
+            foreach ($continuaProfilo as $c){
+                $idContenuto = $c['idContenuto'];
+
+                $stmt = $conn->prepare("
+                    SELECT titoloContenuto, pathCopertina 
+                    FROM Contenuto 
+                    WHERE idContenuto = ?
+                ");
+                
+                $stmt->bind_param("i", $idContenuto);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $contenuto = $result->fetch_assoc();
+                $stmt->close();
+
+                if ($contenuto) {
+                    echo '
+                        <a href="/catalogo/contenuto.php?idContenuto=' . $idContenuto . '" class="catalogue-card">
+                            <img src="' . htmlspecialchars($contenuto['pathCopertina']) . '" alt="' . htmlspecialchars($contenuto['titoloContenuto']) . '">
+                        </a>
+                    ';
+                }
+            }
+            echo '</div>';
+            echo '</section>';
+        }
+
         foreach ($contenutiPerGenere as $genere => $contenuti) {
             echo '<section class="catalogue-row">';
             echo '<h2>' . htmlspecialchars($genere) . '</h2>';
