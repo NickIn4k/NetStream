@@ -61,10 +61,10 @@
                 ";
             } else {
                 echo "
-                    <div class='result-item'>
+                    <a href='/auth/signin.php' class='result-item'>
                         <img src='{$row['pathCopertina']}' alt='' class='result-cover'>
                         <span class='result-title'>{$row['titoloContenuto']}</span>
-                    </div>
+                    </a>
                 ";
             }
         }

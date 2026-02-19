@@ -21,9 +21,17 @@
         xmlhttp.open("GET", `/backend/liveSearch.php?c=${encodeURIComponent(input)}&option=${option}&searchFlag=${searchFlag}`, true);
         xmlhttp.send();
     }
+
+    document.addEventListener("click", function (event) {
+        const wrapper = document.getElementById("searchWrapper");
+        const liveSearchDiv = document.getElementById("livesearch");
+
+        if (!wrapper.contains(event.target)) 
+            liveSearchDiv.style.display = "none";
+    });
 </script>
 
-<div class="search-wrapper">
+<div class="search-wrapper" id="searchWrapper">
     <input type="text" id="searchInput" placeholder="Cerca..." onkeyup="showResultWithOption('<?= $searchFlag ?? '' ?>')" autocomplete="off">
 
     <select id="searchOption">
