@@ -57,6 +57,26 @@
 
     $stmt->close();
 
+    // Recupera lista preferiti del profilo
+    $preferiti = [];
+    $stmt = $conn->prepare("
+        SELECT c.idContenuto, c.titoloContenuto, c.pathCopertina, c.ratingEta
+        FROM ListaPreferiti lp
+        JOIN Contenuto c ON lp.idContenuto = c.idContenuto
+        WHERE lp.idProfilo = ? AND c.ratingEta <= ?
+        ORDER BY c.dataUscita DESC
+    ");
+
+    $stmt->bind_param("ii", $idProfilo, $etaProfilo);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $contenutiPreferiti = [];
+    while ($row = $result->fetch_assoc()) {
+        $contenutiPreferiti[] = $row;
+    }
+    $stmt->close();
+
     include __DIR__ . '/../includes/header.php';
 ?>
 
@@ -70,6 +90,20 @@
 <br>
 <main class="catalogue-page">
     <?php
+        if (!empty($contenutiPreferiti)){
+            echo '<section class="catalogue-row">';
+            echo '<h2>I tuoi preferiti</h2>';
+            echo '<div class="catalogue-slider">';
+                foreach ($contenutiPreferiti as $contenuto){
+                    echo '
+                        <a href="/catalogo/contenuto.php?idContenuto=' . $contenuto['idContenuto'] . '" class="catalogue-card">
+                            <img src="' . htmlspecialchars($contenuto['pathCopertina']) . '" alt="' . htmlspecialchars($contenuto['titoloContenuto']) . '">
+                        </a>
+                    ';
+                }
+            echo '</div>';
+            echo '</section>';
+        }
         foreach ($contenutiPerGenere as $genere => $contenuti) {
             echo '<section class="catalogue-row">';
             echo '<h2>' . htmlspecialchars($genere) . '</h2>';

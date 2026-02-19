@@ -103,15 +103,16 @@
 
     <!-- INFO CONTENUTO -->
     <section class="contenuto-info">
-        <h1 class="contenuto-title">
-            <?= htmlspecialchars($contenuto['titoloContenuto']) ?>
+        <h1 class="contenuto-title-wrapper">
+            <span class="contenuto-title">
+                <?= htmlspecialchars($contenuto['titoloContenuto']) ?>
+            </span>
+
+            <a href="/backend/listaPreferiti.php?idContenuto=<?= $idContenuto ?>" class="fav-btn" title="<?= $isPreferito ? 'Rimuovi dai preferiti' : 'Aggiungi ai preferiti' ?>">
+                <?= $isPreferito ? '★' : '☆' ?>
+            </a>
         </h1>
 
-        <a href="/backend/togglePreferiti.php?idContenuto=<?=$idContenuto?>"
-            class="fav-btn"
-            title="Aggiungi ai preferiti">
-            <?= $isPreferito ? '⭐' : '☆' ?>
-        </a>
 
         <p class="contenuto-description">
             <?= htmlspecialchars($contenuto['descrizioneContenuto']) ?>

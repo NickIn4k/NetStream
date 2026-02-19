@@ -1046,6 +1046,31 @@ a.result-item {
     z-index: 1;
 }
 
+.contenuto-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* distanza tra titolo e stellina */
+}
+
+.contenuto-title {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.fav-btn {
+    margin-left: 4rem;
+    margin-bottom: 0.7rem;
+    font-size: 2.4rem;        /* grandezza della stellina */
+    color: rgb(249, 73, 255);
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.fav-btn:hover {
+    transform: scale(1.2);
+}
+
 /* -------------------------
    BANNER
 ------------------------- */
