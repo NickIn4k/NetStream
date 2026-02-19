@@ -44,7 +44,7 @@
     $linguaOld;
     $etaOld;
     if(isset($_GET['idProfilo'])){
-        $stmt = $conn->prepare("SELECT nomeProfilo, linguaProfilo, etaProfilo FROM Profilo WHERE idProfilo = ?");
+        $stmt = $conn->prepare("SELECT nomeProfilo, linguaProfilo, etaProfilo, idAvatar FROM Profilo WHERE idProfilo = ?");
         $stmt->bind_param("i", $_GET['idProfilo']);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -73,9 +73,10 @@
             <div class="avatar-grid">
                 <?php
                     foreach ($avatarStandard as $avatar) {
+                        $checked = (isset($rs['idAvatar']) && $avatar['idAvatar'] == $rs['idAvatar']) ? 'checked' : '';
                         echo '
                         <label class="avatar-card selectable">
-                            <input type="radio" name="idAvatar" value="' . $avatar['idAvatar'] . '" required>
+                            <input type="radio" name="idAvatar" value="' . $avatar['idAvatar'] . '" ' . $checked . ' required>
                             <img src="' . $avatar['pathAvatar'] . '" alt="' . $avatar['descrittoreAvatar'] . '">
                         </label>';
                     }
@@ -92,6 +93,7 @@
                     foreach ($avatarSpeciali as $avatar) {
 
                         $bloccato = $puntiUtente < $avatar['puntiSblocco'];
+                        $checked = (isset($rs['idAvatar']) && $avatar['idAvatar'] == $rs['idAvatar']) ? 'checked' : '';
 
                         if ($bloccato) {
                             echo '
@@ -102,7 +104,7 @@
                         } else {
                             echo '
                             <label class="avatar-card selectable">
-                                <input type="radio" name="idAvatar" value="' . $avatar['idAvatar'] . '">
+                                <input type="radio" name="idAvatar" value="' . $avatar['idAvatar'] . '" ' . $checked . '>
                                 <img src="' . $avatar['pathAvatar'] . '" alt="' . $avatar['descrittoreAvatar'] . '">
                             </label>';
                         }
@@ -117,7 +119,7 @@
             </div>
 
             <div class="profile-name-wrapper">
-                <input type="number" id="eta" name="eta" min="8" max="120" required value = <?= isset($etaOld) ? $etaOld : 8?>>
+                <input type="number" id="eta" name="eta" placeholder="Età" min="8" max="120" required value = <?= isset($etaOld) ? $etaOld : ''?>>
             </div>
 
             <select name="lingua" id="lingua" required>

@@ -73,6 +73,24 @@
         }
         $stmt->close();
     }
+
+    // Recupero preferiti
+    $isPreferito = false;
+    if (isset($_SESSION['idProfilo'])) {
+        $sql = "
+            SELECT 1
+            FROM listapreferiti
+            WHERE idProfilo = ? AND idContenuto = ?
+            LIMIT 1
+        ";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ii", $_SESSION['idProfilo'], $idContenuto);
+        $stmt->execute();
+        $stmt->store_result();
+
+        $isPreferito = $stmt->num_rows > 0;
+        $stmt->close();
+    }
 ?>
 
 <main class="contenuto-page">
@@ -88,6 +106,12 @@
         <h1 class="contenuto-title">
             <?= htmlspecialchars($contenuto['titoloContenuto']) ?>
         </h1>
+
+        <a href="/backend/togglePreferiti.php?idContenuto=<?=$idContenuto?>"
+            class="fav-btn"
+            title="Aggiungi ai preferiti">
+            <?= $isPreferito ? '⭐' : '☆' ?>
+        </a>
 
         <p class="contenuto-description">
             <?= htmlspecialchars($contenuto['descrizioneContenuto']) ?>
