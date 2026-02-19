@@ -78,7 +78,7 @@
     </div>
 
     <div class="video-wrapper">
-        <video controls autoplay class="video-player" id="videoPlayer">
+        <video controls autoplay class="video-player" id="videoPlayer" controlsList="nodownload">
             <source src="<?= htmlspecialchars($episodio['pathEpisodio']) ?>" type="video/mp4">
             Il tuo browser non supporta il video.
         </video>

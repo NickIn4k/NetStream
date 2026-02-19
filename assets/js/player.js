@@ -15,3 +15,5 @@ function replay() {
 function nextEpisode(id) {
     window.location.href = "/player/player.php?id=" + id;
 }
+
+video.addEventListener("contextmenu", e => e.preventDefault());
