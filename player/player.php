@@ -18,17 +18,18 @@
 
     // Trailer o episodio
     if (isset($_GET['trailer']) && $_GET['trailer'] == 1) {
-        if (!isset($_SESSION['idContenuto'])) {
-            header("Location: /catalogo/catalogo.php");
-            exit;
-        }
-
         $stmt = $conn->prepare("
-            SELECT titoloContenuto, pathContenuto AS pathEpisodio, tipoContenuto
+            SELECT titoloContenuto, trailerPath AS pathEpisodio, tipoContenuto
             FROM Contenuto
             WHERE idContenuto = ?
         ");
-
+        $stmt->bind_param("i", $_SESSION['idContenuto']);
+    } else if(isset($_GET['film']) && $_GET['film'] == 1) {
+        $stmt = $conn->prepare("
+            SELECT titoloContenuto, pathContenuto AS pathEpisodio, tipoContenuto, durataContenuto
+            FROM Contenuto
+            WHERE idContenuto = ?
+        ");
         $stmt->bind_param("i", $_SESSION['idContenuto']);
     } else {
         if (!isset($_GET['id'])) {
@@ -71,7 +72,7 @@
         <h1><?= htmlspecialchars($episodio['titoloContenuto']) ?></h1>
         <br>
         <h3>
-            <?= isset($episodio['numeroStagione']) ? "Stagione: " . $episodio['numeroStagione'] : "Trailer" ?>
+            <?= isset($episodio['numeroStagione']) ? "Stagione: " . $episodio['numeroStagione'] : "Contenuto completo" ?>
             <?= isset($episodio['numeroEpisodio']) ? " Episodio: " . $episodio['numeroEpisodio'] . " - " : "" ?>
             <?= isset($episodio['titoloEpisodio']) ? htmlspecialchars($episodio['titoloEpisodio']) : "" ?>
         </h3>
@@ -97,13 +98,18 @@
             <button class="overlay-btn" onclick="replay()">⟲</button>
             <?php 
             if (!isset($_GET['trailer']))
-                echo "<button class='overlay-btn primary' onclick='nextEpisode(" . ($idEpisodio + 1) . ")'>⏭</button>";
+                echo "<button class='overlay-btn primary' onclick='nextEpisode(" . (isset($idEpisodio) ? ($idEpisodio + 1) : 'null') . ")'>⏭</button>";
             ?>
         </div>
     </div>
 
     <div class="player-info">
-        <p>Durata: <?= isset($episodio['durataEpisodio']) ? $episodio['durataEpisodio'] : "N/A" ?> min</p>
+        <?php 
+            if (isset($episodio['durataEpisodio']))
+                echo "<p>Durata: " . (int)$episodio['durataEpisodio'] . " min</p>";
+            else if (isset($_GET['film']) && isset($episodio['durataContenuto']))
+                echo "<p>Durata: " . (int)$episodio['durataContenuto'] . " min</p>";
+        ?>
     </div>
 </main>
 

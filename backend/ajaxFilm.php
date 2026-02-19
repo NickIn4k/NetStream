@@ -7,7 +7,7 @@
         exit;
 
     $stmt = $conn->prepare("
-        SELECT titoloContenuto, trailerPath
+        SELECT titoloContenuto, pathContenuto
         FROM contenuto
         WHERE idContenuto = ?
     ");
@@ -22,10 +22,10 @@
         <div class='episode-card'>
             <div class='episode-left'>
                 <div class='episode-info'>
-                    <h4>Trailer ufficiale</h4>
+                    <h4>{$row['titoloContenuto']}</h4>
                 </div>
             </div>
-            <a href='/player/player.php?id={$_GET['idContenuto']}&trailer=1' class='watch-btn'>Guarda</a>
+            <a href='/player/player.php?id={$_GET['idContenuto']}&film=1' class='watch-btn'>Guarda</a>
         </div>
     ";
 

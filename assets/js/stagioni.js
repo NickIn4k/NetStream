@@ -33,6 +33,23 @@ document.addEventListener("DOMContentLoaded", () => {
         xhr.send();
     }
 
+    function loadFilm(idContenuto) {
+        container.innerHTML = "Caricamento...";
+
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200)
+                    container.innerHTML = xhr.responseText;
+                else
+                    container.innerHTML = "Errore di caricamento";
+            }
+        };
+
+        xhr.open("GET","/backend/ajaxFilm.php?idContenuto=" + encodeURIComponent(idContenuto),true);
+        xhr.send();
+    }
+
     //Click sui bottoni stagione
     buttons.forEach(btn => {
         btn.addEventListener("click", () => {
@@ -40,11 +57,19 @@ document.addEventListener("DOMContentLoaded", () => {
             buttons.forEach(b => b.classList.remove("active"));
             btn.classList.add("active");
 
-            loadSeason(btn.dataset.stagione);
+            if (btn.dataset.film) {
+                loadFilm(btn.dataset.film);
+            } else {
+                loadSeason(btn.dataset.stagione);
+            }
         });
     });
 
     //Caricamento automatico stagione 1
     buttons[0].classList.add("active");
-    loadSeason(buttons[0].dataset.stagione);
+    if (buttons[0].dataset.film) {
+        loadFilm(buttons[0].dataset.film);
+    } else {
+        loadSeason(buttons[0].dataset.stagione);
+    }
 });

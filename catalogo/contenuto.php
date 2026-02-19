@@ -143,6 +143,17 @@
                     </button>
                 ";
             }
+            else{
+                echo "
+                    <button class='nav-btn' data-film='{$idContenuto}'>
+                        Film completo
+                    </button>
+
+                    <button class='nav-btn' data-stagione='-1'>
+                        Contenuti extra
+                    </button>
+                ";
+            }
         ?>
     </section>
 
