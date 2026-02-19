@@ -110,9 +110,9 @@ $conn->close();
             <div class="form-group">
                 <label for="nuovoAbbonamento">Nuovo piano</label>
                 <select name="nuovoAbbonamento" id="nuovoAbbonamento" required>
-                    <option value="Base">Base – 6.99€</option>
-                    <option value="Medium">Medium – 9.99€</option>
-                    <option value="Pro">Pro – 12.99€</option>
+                    <?php if ($dati['tipoAbbonamento'] !== 'Base') echo '<option value="Base">Base – 6.99€</option>'; ?>
+                    <?php if ($dati['tipoAbbonamento'] !== 'Medium') echo '<option value="Medium">Medium – 9.99€</option>'; ?>
+                    <?php if ($dati['tipoAbbonamento'] !== 'Pro') echo '<option value="Pro">Pro – 12.99€</option>'; ?>
                 </select>
             </div>
 
