@@ -1,5 +1,5 @@
 <?php
-    $secret = "CHIAVE_SUPER_SEGRETA"; //Chiave condivisa con NetStream
+    $secret = "CHIAVE_SUPER_SEGRETA"; //Chiave condivisa con Bet271
 
     if ($_POST['secret'] !== $secret) {
         http_response_code(403);
