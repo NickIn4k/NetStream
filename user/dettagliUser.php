@@ -40,30 +40,55 @@ $stmt->close();
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['nuovoAbbonamento'])) {
     $nuovoAbbonamento = $_POST['nuovoAbbonamento'];
 
-    //Recupero idAbbonamento nuovo
-    $stmt_abbon = $conn->prepare("SELECT idAbbonamento FROM Abbonamento WHERE tipoAbbonamento = ?");
+    //Recupero idAbbonamento e maxProfili del nuovo piano
+    $stmt_abbon = $conn->prepare("
+        SELECT idAbbonamento, maxProfili 
+        FROM Abbonamento 
+        WHERE tipoAbbonamento = ?
+    ");
     $stmt_abbon->bind_param("s", $nuovoAbbonamento);
     $stmt_abbon->execute();
-    $stmt_abbon->bind_result($idAbbonamentoNuovo);
+    $stmt_abbon->bind_result($idAbbonamentoNuovo, $maxProfiliNuovo);
     $stmt_abbon->fetch();
     $stmt_abbon->close();
 
-    //Aggiorno sottoscrizione
-    $stmt_upd = $conn->prepare("UPDATE Sottoscrizione
-        SET idAbbonamento = ?
-        WHERE idUtente = ? AND statoSottoscrizione = 'ATTIVA'
+    //Conteggio profili attuali dell'utente
+    $stmt_prof = $conn->prepare("
+        SELECT COUNT(*) 
+        FROM Profilo 
+        WHERE idUtente = ?
     ");
+    $stmt_prof->bind_param("i", $idUtente);
+    $stmt_prof->execute();
+    $stmt_prof->bind_result($numeroProfili);
+    $stmt_prof->fetch();
+    $stmt_prof->close();
 
-    $stmt_upd->bind_param("ii", $idAbbonamentoNuovo, $idUtente);
-
-    if ($stmt_upd->execute()) {
-        $msg = "<div class='msg success'>Abbonamento aggiornato con successo.</div>";
-        header("Refresh:1"); //Ricarica la pagina
+    //Controllo limite profili
+    if ($numeroProfili > $maxProfiliNuovo) {
+        $msg = "<div class='msg error'>
+                    Impossibile cambiare piano: hai $numeroProfili profili, 
+                    ma il nuovo abbonamento ne consente massimo $maxProfiliNuovo.
+                </div>";
     } else {
-        $msg = "<div class='msg error'>Errore nel cambio abbonamento.</div>";
-    }
+        //Aggiorno sottoscrizione
+        $stmt_upd = $conn->prepare("
+            UPDATE Sottoscrizione
+            SET idAbbonamento = ?
+            WHERE idUtente = ? AND statoSottoscrizione = 'ATTIVA'
+        ");
 
-    $stmt_upd->close();
+        $stmt_upd->bind_param("ii", $idAbbonamentoNuovo, $idUtente);
+
+        if ($stmt_upd->execute()) {
+            $msg = "<div class='msg success'>Abbonamento aggiornato con successo.</div>";
+            header("Refresh:1");
+        } else {
+            $msg = "<div class='msg error'>Errore nel cambio abbonamento.</div>";
+        }
+
+        $stmt_upd->close();
+    }
 }
 
 $conn->close();
