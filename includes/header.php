@@ -23,7 +23,7 @@
     <div class="floating-header-inner">
         <!-- LOGO -->
         <div class="logo-float">
-            <a href="/index.php">
+            <a href = "<?=  isset($_SESSION['idProfilo']) ? "/catalogo/catalogo.php" : "/index.php" ?>">
                 <img src="/assets/img/loghi/Logo.png" alt="NetStream" class="logo-img">
             </a>
         </div>
