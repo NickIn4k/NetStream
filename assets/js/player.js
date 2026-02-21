@@ -1,6 +1,18 @@
 const video = document.getElementById("videoPlayer");
 const overlay = document.getElementById("videoOverlay");
 const divPage = document.getElementById("playerPage");
+const startTime = parseInt(video.dataset.startTime, 10);
+
+console.log("Riprendo da " + startTime + " secondi");
+
+if (startTime > 0){
+    video.addEventListener("loadedmetadata", () => {
+        video.pause();
+        if (startTime < video.duration)
+            video.currentTime = startTime;
+        video.play();
+    });
+}
 
 video.addEventListener("contextmenu", e => e.preventDefault());
 
@@ -62,6 +74,7 @@ function mandaDatiBet271(){
 const contenuto = {
     idContenuto: parseInt(video.dataset.idContenuto), 
     idProfilo: parseInt(video.dataset.idProfilo),
+    idEpisodio: parseInt(video.dataset.idEpisodio),
     tipo: video.dataset.tipoContenuto,               
     ultimoEpisodio: video.dataset.tipoContenuto === "serie" ? { stagione: parseInt(video.dataset.stagione), episodio: parseInt(video.dataset.episodio) } : null,
     tempo: 0

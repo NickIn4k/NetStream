@@ -63,6 +63,23 @@
         exit;
     }
 
+    $time = null;
+    if (isset($_COOKIE['continuaAGuardare'])) {
+        $idEpisodio = $_GET['id'] ?? null;
+        $data = json_decode($_COOKIE['continuaAGuardare'], true);
+
+        if (is_array($data)) {
+            foreach ($data as $c) {
+                if (isset($c['idProfilo'], $c['idContenuto'], $c['tempo']) && $c['idProfilo'] == $_SESSION['idProfilo'] && $c['idContenuto'] == $_SESSION['idContenuto']
+                    && (($c['idEpisodio'] == null && !isset($idEpisodio)) || (isset($idEpisodio) && $c['idEpisodio'] == $idEpisodio))
+                ){
+                    $time = $c['tempo'];
+                    break;
+                }    
+            }
+        }
+    } 
+    
     include __DIR__ . '/../includes/header.php';
 ?>
 
@@ -80,17 +97,16 @@
 
     <div class="video-wrapper">
         <video 
-          controls autoplay 
-          class="video-player" 
-          id="videoPlayer" 
-          controlsList="nodownload"
+          controls autoplay class="video-player" id="videoPlayer" controlsList="nodownload"
           data-id-contenuto="<?= $_SESSION['idContenuto'] ?>"
           data-id-profilo="<?= $_SESSION['idProfilo'] ?>"
           data-tipo-contenuto="<?= $episodio['tipoContenuto'] ?>" 
           data-stagione="<?= isset($episodio['numeroStagione']) ? $episodio['numeroStagione'] : null ?>" 
           data-episodio="<?= isset($episodio['numeroEpisodio']) ? $episodio['numeroEpisodio'] : null ?>"
+          data-id-episodio="<?= $idEpisodio ?? '' ?>"
+          data-start-time="<?= $time !== null ? $time : 0 ?>"
         >
-            <source src="<?= htmlspecialchars($episodio['pathEpisodio']) ?>" type="video/mp4">
+            <source src="<?= htmlspecialchars($episodio['pathEpisodio'])?>" type="video/mp4">
             Il tuo browser non supporta il video.
         </video>
 
