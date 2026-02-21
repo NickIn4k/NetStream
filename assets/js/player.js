@@ -6,6 +6,9 @@ video.addEventListener("contextmenu", e => e.preventDefault());
 
 video.addEventListener("ended", () => {
     overlay.classList.remove("hidden");
+
+    // Invia i dati a Bet271 con AJAX
+    mandaDatiBet271();
 });
 
 function replay() {
@@ -39,6 +42,20 @@ function salvaContinuaAGuardare(contenuto) {
     };
 
     xmlhttp.send(JSON.stringify(contenuto));
+}
+
+function mandaDatiBet271(){
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.open('GET', '/backend/sendToBet271.php', true);
+
+    xmlhttp.onreadystatechange = function(){
+        if(xmlhttp.readyState === 4 && xmlhttp.status === 200)
+            console.log('Dati inviati a Bet271:', xmlhttp.responseText);
+        else
+            console.error('Errore invio dati a Bet271:', xmlhttp.status);
+    };
+
+    xmlhttp.send();
 }
 
 // Oggetto JS per salvare le info grazie all'attributo data-* di HTML
