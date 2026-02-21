@@ -1,8 +1,8 @@
 <?php
     session_start();
     $_SESSION['email'] = 'samk@gmail.com';
-    $IP = "192.168.1.60";
-    $PathAlFile = "Prova_ConnessioneLocale-main";
+    $IP = "10.68.90.203";
+    $PathAlFile = "projects/bet_271/comms";
     $nomeFile = "updateBet271.php";
 
     if (!isset($_SESSION['email']))
