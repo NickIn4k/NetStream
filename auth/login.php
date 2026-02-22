@@ -25,7 +25,7 @@
             $msg = "<div class='msg error'>Inserisci username/email e password.</div>";
         } else {
             //Recupero utente
-            $stmt = $conn->prepare(" SELECT idUtente, nomeUtente, password FROM Utente WHERE nomeUtente = ? OR email = ?");
+            $stmt = $conn->prepare("SELECT idUtente, email, nomeUtente, password FROM Utente WHERE nomeUtente = ? OR email = ?");
             $stmt->bind_param("ss", $login, $login);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -44,9 +44,10 @@
                     $stmt_sub->store_result();
 
                     if ($stmt_sub->num_rows === 1) {
-                        // Login
+                        //Login
                         $_SESSION['idUtente'] = $idUtente;
                         $_SESSION['nomeUtente'] = $utente['nomeUtente'];
+                        $_SESSION['email'] = $utente['email'];
 
                         $stmt_sub->close();
                         $stmt->close();
@@ -114,3 +115,4 @@
 </section>
 
 <?php include __DIR__ . '/../includes/footer.php'; ?>
+

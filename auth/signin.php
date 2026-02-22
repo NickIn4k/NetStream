@@ -62,6 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST)) {
 
                 $_SESSION['idUtente'] = $idUtente;
                 $_SESSION['nomeUtente'] = $nomeUtente;
+                $_SESSION['email'] = $email;
 
                 //ID abbonamento
                 $stmt_abbon = $conn->prepare("SELECT idAbbonamento FROM Abbonamento WHERE tipoAbbonamento = ?");

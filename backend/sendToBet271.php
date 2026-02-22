@@ -1,6 +1,5 @@
 <?php
     session_start();
-    $_SESSION['email'] = 'samk@gmail.com';
     $IP = "10.68.90.203";
     $PathAlFile = "projects/bet_271/comms";
     $nomeFile = "updateBet271.php";
@@ -10,6 +9,9 @@
 
     $email = $_SESSION['email'];
     $secret = "CHIAVE_SUPER_SEGRETA"; //Chiave condivisa con bet271
+
+    //TEMPORANEO
+    echo "<script>console.log('Messaggio da PHP: Utente loggato con email: " . $email . "');</script>";
 
     $data = [
         'email' => $email,
