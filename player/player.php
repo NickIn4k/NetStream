@@ -64,14 +64,16 @@
     }
 
     $time = null;
+    $time = null;
     if (isset($_COOKIE['continuaAGuardare'])) {
         $idEpisodio = $_GET['id'] ?? null;
         $data = json_decode($_COOKIE['continuaAGuardare'], true);
 
         if (is_array($data)) {
             foreach ($data as $c) {
-                if (isset($c['idProfilo'], $c['idContenuto'], $c['tempo']) && $c['idProfilo'] == $_SESSION['idProfilo'] && $c['idContenuto'] == $_SESSION['idContenuto']
-                    && (($c['idEpisodio'] == null && !isset($idEpisodio)) || (isset($idEpisodio) && $c['idEpisodio'] == $idEpisodio))
+                if (isset($c['idProfilo'], $c['idContenuto'], $c['tempo']) 
+                    && $c['idProfilo'] == $_SESSION['idProfilo'] && $c['idContenuto'] == $_SESSION['idContenuto']
+                    && ((!isset($idEpisodio) && $c['idEpisodio'] == null) || (isset($idEpisodio) && $c['idEpisodio'] == $idEpisodio))
                 ){
                     $time = $c['tempo'];
                     break;
