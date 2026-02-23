@@ -66,15 +66,14 @@
             } else {
                 $msg = "<div class='msg error'>Utente non trovato.</div>";
             }
-
             $stmt->close();
         }
-
         $conn->close();
     }
 
     //Messaggi di errore
-    if (!empty($msg)) echo $msg;
+    if (!empty($msg)) 
+        echo $msg;
 ?>
 
 <section class="signin-main">
@@ -89,7 +88,6 @@
         <p class="signin-subtitle">Bentornato su NetStream</p>
 
         <form action="" method="post">
-
             <div class="form-group">
                 <label for="login">Username o Email</label>
                 <input type="text" id="login" name="login" required maxlength="100">
@@ -103,16 +101,13 @@
             <div class="form-buttons">
                 <input type="submit" value="Accedi" class="cta">
             </div>
-
         </form>
 
         <p class="signin-footer">
             Non hai un account?
             <a href="/auth/signin.php">Registrati</a>
         </p>
-
     </div>
 </section>
 
 <?php include __DIR__ . '/../includes/footer.php'; ?>
-

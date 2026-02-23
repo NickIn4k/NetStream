@@ -13,9 +13,8 @@ $msg = "";
 if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST)) {
 
     $conn = new mysqli("localhost", "root", "", "db_NetStream");
-    if ($conn->connect_error) {
+    if ($conn->connect_error)
         die("Connessione fallita: " . $conn->connect_error);
-    }
 
     //Gestione dati del form e validazione
     $nomeUtente = trim($_POST['username']);
@@ -83,10 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST)) {
                 $stmt_sott->close();
                 $stmt_insert->close();
                 $conn->close();
-
-                //Login automatico e redirect
-                $_SESSION['idUtente'] = $idUtente;
-                $_SESSION['nomeUtente'] = $nomeUtente;
+                
                 header("Location: /../profili/profili.php");
                 exit;
             } else {
@@ -96,12 +92,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST)) {
         }
         $stmt->close();
     }
-
     $conn->close();
 }
 
 //Messaggi di errore
-if (!empty($msg)) echo $msg;
+if (!empty($msg)) 
+    echo $msg;
 ?>
 
 <section class="signin-main">
@@ -116,7 +112,6 @@ if (!empty($msg)) echo $msg;
         <p class="signin-subtitle">Crea il tuo account NetStream</p>
 
         <form action="" method="post">
-
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" required minlength="3" maxlength="50">
@@ -168,14 +163,12 @@ if (!empty($msg)) echo $msg;
                 <input type="submit" value="Registrati" class="cta">
                 <input type="reset" value="Reset" class="btn-reset">
             </div>
-
         </form>
 
         <p class="signin-footer">
             Hai già un account?
             <a href="/auth/login.php">Accedi</a>
         </p>
-
     </div>
 </section>
 

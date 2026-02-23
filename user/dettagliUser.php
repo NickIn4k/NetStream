@@ -145,7 +145,6 @@ $conn->close();
                 <input type="submit" value="Aggiorna piano" class="cta">
             </div>
         </form>
-
     </div>
 </section>
 
