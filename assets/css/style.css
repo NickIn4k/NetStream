@@ -1569,3 +1569,62 @@ a.result-item {
     background: rgba(255, 255, 255, 0.3);
     transform: scale(1.05);
 }
+
+/* =======================
+   RECENSIONI
+======================= */
+
+.no-reviews {
+    color: #aaa;
+    font-style: italic;
+    margin-top: 20px;
+}
+
+/* Contenitore singola recensione */
+.review-item {
+    background-color: #181818;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.05);
+    transition: background 0.2s ease;
+}
+
+.review-item:hover {
+    background-color: #202020;
+}
+
+/* Header: nome + stelle */
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+/* Nome profilo */
+.review-user {
+    color: #fff;
+    font-size: 15px;
+}
+
+/* Stelle */
+.review-stars {
+    color: #f5c518; /* oro */
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Commento */
+.review-comment {
+    color: #ddd;
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 6px 0 4px;
+}
+
+/* Data */
+.review-date {
+    color: #999;
+    font-size: 12px;
+}

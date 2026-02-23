@@ -154,6 +154,12 @@
                     </button>
                 ";
             }
+
+            echo "
+                <button class='nav-btn' data-recensione='true'>
+                    Recensioni
+                </button>
+            ";
         ?>
     </section>
 

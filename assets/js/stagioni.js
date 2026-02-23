@@ -50,6 +50,23 @@ document.addEventListener("DOMContentLoaded", () => {
         xhr.send();
     }
 
+    function loadRecensioni() {
+        container.innerHTML = "Caricamento recensioni...";
+
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200)
+                    container.innerHTML = xhr.responseText;
+                else
+                    container.innerHTML = "Errore nel caricamento recensioni";
+            }
+        };
+
+        xhr.open("GET","/backend/ajaxRecensioni.php?idContenuto=" + encodeURIComponent(idContenuto),true);
+        xhr.send();
+    }
+
     //Click sui bottoni stagione
     buttons.forEach(btn => {
         btn.addEventListener("click", () => {
@@ -57,11 +74,12 @@ document.addEventListener("DOMContentLoaded", () => {
             buttons.forEach(b => b.classList.remove("active"));
             btn.classList.add("active");
 
-            if (btn.dataset.film) {
+            if (btn.dataset.recensione)
+                loadRecensioni();
+            else if (btn.dataset.film)
                 loadFilm(btn.dataset.film);
-            } else {
+            else
                 loadSeason(btn.dataset.stagione);
-            }
         });
     });
 
@@ -69,6 +87,8 @@ document.addEventListener("DOMContentLoaded", () => {
     buttons[0].classList.add("active");
     if (buttons[0].dataset.film) {
         loadFilm(buttons[0].dataset.film);
+    } else if (buttons[0].dataset.recensione) {
+        loadRecensioni();
     } else {
         loadSeason(buttons[0].dataset.stagione);
     }
