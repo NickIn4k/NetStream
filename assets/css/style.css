@@ -436,6 +436,75 @@ body::after {
     animation-delay: 0.2s;
 }
 
+/* -------------------------------
+   SPONSORIZZAZIONE A BET271
+-------------------------------- */
+
+.bet271-promo {
+    margin: 80px 0;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+
+.bet271-card {
+    width: 100%;
+    max-width: 1100px;
+    background: linear-gradient(135deg, #111, #1a1a1a);
+    border-radius: 18px;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    border: 1px solid #333;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+.bet271-text {
+    flex: 1;
+}
+
+.bet271-text h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.bet271-text p {
+    color: #bbb;
+    margin-bottom: 20px;
+}
+
+.bet271-text ul {
+    margin-bottom: 25px;
+    padding-left: 20px;
+}
+
+.bet271-text li {
+    margin-bottom: 8px;
+}
+
+.bet271-btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #ffcc00, #ff9900);
+    color: #000;
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.25s;
+}
+
+.bet271-btn:hover {
+    transform: translateY(-3px);
+    opacity: 0.9;
+}
+
+.bet271-logo img {
+    width: 180px;
+    filter: drop-shadow(0 0 10px rgba(255, 204, 0, 0.4));
+}
+
 
 /* -------------------------------
    SIGN IN

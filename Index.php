@@ -1,13 +1,13 @@
 <?php
     session_start();
     unset($_SESSION['idProfilo']);
-
-    // Include di elementi comuni tra tutte le pagine (costruiti con php)
     include __DIR__ . '/includes/header.php';
 ?>
 
 <section class="hero-main">
-    <h1>NetStream&trade;</h1>
+    <h1>
+        NetStream&trade;
+    </h1>
     <p>Emozioni in ogni click.</p>
 </section>
 
@@ -41,9 +41,27 @@
     </div>
 </section>
 
-<section class="bet271">
-    <div class="bet">
-        
+<section class="bet271-promo">
+
+    <div class="bet271-card">
+        <div class="bet271-text">
+            <h2>🎰 Partnership con Bet271</h2>
+
+            <p>
+                Sei già iscritto a <strong>Bet271</strong>?  
+                Collega il tuo account e ottieni:
+            </p>
+
+            <ul>
+                <li>Punti bonus NetStream</li>
+                <li>Accesso anticipato a contenuti esclusivi</li>
+                <li>Sconti sugli abbonamenti</li>
+            </ul>
+        </div>
+
+        <div class="bet271-logo">
+            <img src="/assets/img/loghi/bet271_logo.png" alt="Bet271">
+        </div>
     </div>
 </section>
 
