@@ -1,9 +1,8 @@
 <?php
     session_start();
 
-    if (isset($_GET['idProfilo'])) {
+    if (isset($_GET['idProfilo']))
         $_SESSION['idProfilo'] = $_GET['idProfilo'];
-    }
 
     if (!isset($_SESSION['idProfilo'])) {
         header("Location: /profili/profili.php");
@@ -13,9 +12,8 @@
     $idProfilo = $_SESSION['idProfilo'];
 
     $conn = new mysqli("localhost", "root", "", "db_NetStream");
-    if ($conn->connect_error) {
+    if ($conn->connect_error) 
         die('Connessione fallita: ' . $conn->connect_error);
-    }
 
     // Prendi età profilo
     $stmt = $conn->prepare("
@@ -23,6 +21,7 @@
         FROM Profilo
         WHERE idProfilo = ?
     ");
+
     $stmt->bind_param("i", $idProfilo);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -51,9 +50,8 @@
     $stmt->execute();
     $result = $stmt->get_result();
 
-    while ($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch_assoc())
         $contenutiPerGenere[$row['nomeGenere']][] = $row;
-    }
 
     $stmt->close();
 
@@ -72,9 +70,9 @@
     $result = $stmt->get_result();
 
     $contenutiPreferiti = [];
-    while ($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch_assoc()) 
         $contenutiPreferiti[] = $row;
-    }
+
     $stmt->close();
 
     include __DIR__ . '/../includes/header.php';
@@ -87,9 +85,12 @@
         include __DIR__ . '/../includes/cercaCatalogo.php'; 
     ?>
 </section>
+
 <br>
+
 <main class="catalogue-page">
     <?php
+        // "Stampa" i preferiti in cima
         if (!empty($contenutiPreferiti)){
             echo '<section class="catalogue-row">';
             echo '<h2>I tuoi preferiti</h2>';
@@ -109,17 +110,20 @@
         $continuaCookie = $_COOKIE['continuaAGuardare'] ?? '[]';
         $continuaAll = json_decode($continuaCookie, true) ?: [];
 
-        // Filtra per il profilo corrente
+        // Filtra per il profilo corrente -> Più profili per lo stesso utente!
         $continuaProfilo = [];
         foreach ($continuaAll as $c) {
             if (isset($c['idProfilo']) && $c['idProfilo'] == $idProfilo)
                 $continuaProfilo[] = $c;
         }
 
+        // "Stampa" i contenuti da continuare a guardare
         if ($continuaProfilo){
             echo '<section class="catalogue-row">';
             echo '<h2>Continua a guardare</h2>';
             echo '<div class="catalogue-slider">';
+            
+            // Per ogni contenuto nella lista da continuare, "stampa" la card
             foreach ($continuaProfilo as $c){
                 $idContenuto = $c['idContenuto'];
 
@@ -135,6 +139,7 @@
                 $contenuto = $result->fetch_assoc();
                 $stmt->close();
 
+                // ogni card (copertina è un link alla pagina contenuto.php?idContenuto=x)
                 if ($contenuto) {
                     echo '
                         <a href="/catalogo/contenuto.php?idContenuto=' . $idContenuto . '" class="catalogue-card">
@@ -147,11 +152,14 @@
             echo '</section>';
         }
 
+        // "Stampa" i contenuti per ogni genere
         foreach ($contenutiPerGenere as $genere => $contenuti) {
+            // Nome contenuto
             echo '<section class="catalogue-row">';
             echo '<h2>' . htmlspecialchars($genere) . '</h2>';
             echo '<div class="catalogue-slider">';
 
+            // Ogni card (link) al contenuto di quel genere (1:N)
             foreach ($contenuti as $contenuto) {
                 echo '
                     <a href="/catalogo/contenuto.php?idContenuto=' . $contenuto['idContenuto'] . '" class="catalogue-card">

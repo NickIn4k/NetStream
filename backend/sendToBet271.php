@@ -10,7 +10,6 @@
     $email = $_SESSION['email'];
     $secret = "CHIAVE_SUPER_SEGRETA"; //Chiave condivisa con bet271
 
-    //TEMPORANEO
     echo "<script>console.log('Messaggio da PHP: Utente loggato con email: " . $email . "');</script>";
 
     $data = [
