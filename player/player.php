@@ -16,8 +16,9 @@
     // Variabile episodio
     $episodio = null;
 
-    // Trailer o episodio
+    // Trailer, film o episodio?
     if (isset($_GET['trailer']) && $_GET['trailer'] == 1) {
+        // Caso trailer
         $stmt = $conn->prepare("
             SELECT titoloContenuto, trailerPath AS pathEpisodio, tipoContenuto
             FROM Contenuto
@@ -25,6 +26,7 @@
         ");
         $stmt->bind_param("i", $_SESSION['idContenuto']);
     } else if(isset($_GET['film']) && $_GET['film'] == 1) {
+        // Caso film
         $stmt = $conn->prepare("
             SELECT titoloContenuto, pathContenuto AS pathEpisodio, tipoContenuto, durataContenuto
             FROM Contenuto
@@ -32,6 +34,7 @@
         ");
         $stmt->bind_param("i", $_SESSION['idContenuto']);
     } else {
+        // Caso episodio
         if (!isset($_GET['id'])) {
             header("Location: /catalogo/catalogo.php");
             exit;
@@ -40,8 +43,7 @@
         $idEpisodio = $_GET['id'];
 
         $stmt = $conn->prepare("
-            SELECT e.titoloEpisodio, e.numeroEpisodio, e.durataEpisodio, e.pathEpisodio, 
-                s.numeroStagione, c.titoloContenuto, c.tipoContenuto
+            SELECT e.titoloEpisodio, e.numeroEpisodio, e.durataEpisodio, e.pathEpisodio, s.numeroStagione, c.titoloContenuto, c.tipoContenuto
             FROM Episodio e
             INNER JOIN Stagione s ON e.idStagione = s.idStagione
             INNER JOIN Contenuto c ON s.idSerie = c.idContenuto
@@ -51,7 +53,6 @@
         $stmt->bind_param("i", $idEpisodio);
     }
 
-    // Esecuzione
     $stmt->execute();
     $result = $stmt->get_result();
     $episodio = $result->fetch_assoc();
@@ -64,15 +65,19 @@
     }
 
     $time = null;
-    $time = null;
+
+    // Se c'è un cookie con il tempo di visione, usalo per riprendere da lì
     if (isset($_COOKIE['continuaAGuardare'])) {
         $idEpisodio = $_GET['id'] ?? null;
         $data = json_decode($_COOKIE['continuaAGuardare'], true);
 
         if (is_array($data)) {
+            // Per ogni elemento preso dal cookie, se corrisponde al profilo, contenuto e episodio attuale, prendi il tempo
             foreach ($data as $c) {
-                if (isset($c['idProfilo'], $c['idContenuto'], $c['tempo']) 
+                if (
+                    isset($c['idProfilo'], $c['idContenuto'], $c['tempo']) 
                     && $c['idProfilo'] == $_SESSION['idProfilo'] && $c['idContenuto'] == $_SESSION['idContenuto']
+                    // Se è un film o trailer, non c'è idEpisodio, altrimenti deve corrispondere
                     && ((!isset($idEpisodio) && $c['idEpisodio'] == null) || (isset($idEpisodio) && $c['idEpisodio'] == $idEpisodio))
                 ){
                     $time = $c['tempo'];
@@ -90,6 +95,7 @@
     <div class="player-header">
         <h1><?= htmlspecialchars($episodio['titoloContenuto']) ?></h1>
         <br>
+        <!-- Prendi dati da episodio -->
         <h3>
             <?= isset($episodio['numeroStagione']) ? "Stagione: " . $episodio['numeroStagione'] : "Contenuto completo" ?>
             <?= isset($episodio['numeroEpisodio']) ? " Episodio: " . $episodio['numeroEpisodio'] . " - " : "" ?>
@@ -98,6 +104,7 @@
     </div>
 
     <div class="video-wrapper">
+        <!-- attributo data-* per passare dati a JavaScript -->
         <video 
           controls autoplay class="video-player" id="videoPlayer" controlsList="nodownload"
           data-id-contenuto="<?= $_SESSION['idContenuto'] ?>"

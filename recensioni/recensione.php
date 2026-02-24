@@ -30,17 +30,15 @@
     }
 
     // Inserimento nel DB
-    $sql = "INSERT INTO recensione (voto, commento, dataRecensione, idProfilo, idContenuto) 
-            VALUES (?, ?, NOW(), ?, ?)";
+    $sql = "INSERT INTO recensione (voto, commento, dataRecensione, idProfilo, idContenuto) VALUES (?, ?, NOW(), ?, ?)";
 
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("isii", $voto, $commento, $idProfilo, $idContenuto);
 
-    if($stmt->execute()){
+    if($stmt->execute())
         echo json_encode(['success' => true, 'message' => 'Recensione inviata con successo!']);
-    } else {
+    else 
         echo json_encode(['success' => false, 'message' => 'Errore durante l\'invio della recensione.']);
-    }
 
     $stmt->close();
 ?>

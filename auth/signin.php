@@ -117,7 +117,7 @@ if (!empty($msg))
         <h1>Registrati</h1>
         <p class="signin-subtitle">Crea il tuo account NetStream</p>
 
-        <form action="" method="post">
+        <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" required minlength="3" maxlength="50">

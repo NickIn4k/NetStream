@@ -31,15 +31,14 @@
     $avatarSpeciali = [];
 
     while ($row = $result->fetch_assoc()) {
-        if ($row['puntiSblocco'] == 0) {
+        if ($row['puntiSblocco'] == 0)
             $avatarStandard[] = $row;
-        } else {
+        else 
             $avatarSpeciali[] = $row;
-        }
     }
     $stmt->close();
 
-    // Dettagli profilo
+    // Dettagli profilo - Elementi per precompilare
     $nomeOld;
     $linguaOld;
     $etaOld;
@@ -91,10 +90,10 @@
             <div class="avatar-grid">
                 <?php
                     foreach ($avatarSpeciali as $avatar) {
-
                         $bloccato = $puntiUtente < $avatar['puntiSblocco'];
                         $checked = (isset($rs['idAvatar']) && $avatar['idAvatar'] == $rs['idAvatar']) ? 'checked' : '';
 
+                        // Se bloccato ha una classe CSS, se no un'altra
                         if ($bloccato) {
                             echo '
                             <div class="avatar-card locked">
@@ -113,6 +112,8 @@
             </div>
         </section>
 
+        <!-- Action bar con nome, età e lingua -->
+
         <div class="profile-actions-bar">
             <div class="profile-name-wrapper">
                 <input type="text" id="nomeProfilo" name="nomeProfilo" maxlength="50" required placeholder="Nome profilo" value = <?= isset($nomeOld) ? $nomeOld : ''?>>
@@ -122,6 +123,7 @@
                 <input type="number" id="eta" name="eta" placeholder="Età" min="8" max="120" required value = <?= isset($etaOld) ? $etaOld : ''?>>
             </div>
 
+            <!-- Selezione salvata in automatico -->
             <select name="lingua" id="lingua" required>
                 <option value="">Lingua</option>
                 <option value="it" <?= ($linguaOld ?? '') === 'it' ? 'selected' : '' ?>>Italiano</option>

@@ -13,18 +13,16 @@
 
     // Connessione DB
     $conn = new mysqli("localhost", "root", "", "db_NetStream");
-    if ($conn->connect_error) {
+    if ($conn->connect_error)
         die("Connessione fallita: " . $conn->connect_error);
-    }
 
     // Dati
     $idUtente    = $_SESSION['idUtente'];
     $nomeProfilo = trim($_POST['nomeProfilo']);
-    $idAvatar    = (int) $_POST['idAvatar'];
+    $idAvatar    = $_POST['idAvatar'];
 
-    // Valori di default (puoi cambiarli più avanti)
     $linguaProfilo = $_POST['lingua'] ?? 'it';
-    $etaProfilo    = isset($_POST['eta']) ? (int)$_POST['eta'] : 18;
+    $etaProfilo    = isset($_POST['eta']) ? $_POST['eta'] : 18;
 
     $idProfilo = $_POST['idProfilo'] ?? null;
 
@@ -36,19 +34,10 @@
             WHERE idProfilo = ? AND idUtente = ?
         ");
 
-        $stmt->bind_param(
-            "ssiiii",
-            $nomeProfilo,
-            $linguaProfilo,
-            $etaProfilo,
-            $idAvatar,
-            $idProfilo,
-            $idUtente
-        );
+        $stmt->bind_param("ssiiii", $nomeProfilo, $linguaProfilo, $etaProfilo, $idAvatar, $idProfilo, $idUtente);
 
-        if (!$stmt->execute()) {
+        if (!$stmt->execute()) 
             die("Errore aggiornamento profilo: " . $stmt->error);
-        }
 
         // Salvataggio in sessione
         $_SESSION['idProfilo']   = $idProfilo;
@@ -69,18 +58,10 @@
         VALUES (?, ?, ?, ?, ?)
     ");
 
-    $stmt->bind_param(
-        "ssiii",
-        $nomeProfilo,
-        $linguaProfilo,
-        $etaProfilo,
-        $idUtente,
-        $idAvatar
-    );
+    $stmt->bind_param("ssiii", $nomeProfilo, $linguaProfilo, $etaProfilo, $idUtente, $idAvatar);
 
-    if (!$stmt->execute()) {
+    if (!$stmt->execute())
         die("Errore inserimento profilo: " . $stmt->error);
-    }
 
     $stmt->close();
     $conn->close();

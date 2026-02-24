@@ -3,8 +3,7 @@ const overlay = document.getElementById("videoOverlay");
 const divPage = document.getElementById("playerPage");
 const startTime = parseInt(video.dataset.startTime, 10);
 
-console.log("Riprendo da " + startTime + " secondi");
-
+// Se c'è un tempo di inizio specificato, aspetta che i metadati siano caricati per posizionare il video
 if (startTime > 0){
     video.addEventListener("loadedmetadata", () => {
         video.pause();
@@ -14,8 +13,10 @@ if (startTime > 0){
     });
 }
 
+// Disabilita menù con tasto destro del player
 video.addEventListener("contextmenu", e => e.preventDefault());
 
+// Fine video => manda dati a Bet271
 video.addEventListener("ended", () => {
     overlay.classList.remove("hidden");
 
@@ -23,16 +24,19 @@ video.addEventListener("ended", () => {
     mandaDatiBet271();
 });
 
+// Meetti l'overlay nascosto al click e fai ripartire il video
 function replay() {
     overlay.classList.add("hidden");
     video.currentTime = 0;
     video.play();
 }
 
+// Passa all'episodio successivo (pagina php con get a id successivo)
 function nextEpisode(id) {
     window.location.href = "/player/player.php?id=" + id;
 }
 
+// Richiesta AJAX per salvare il cookie con php e POST
 function salvaContinuaAGuardare(contenuto) {
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.open('POST', '/backend/salvaContinua.php', true);
@@ -56,6 +60,7 @@ function salvaContinuaAGuardare(contenuto) {
     xmlhttp.send(JSON.stringify(contenuto));
 }
 
+// Richista AJAX per inviare i dati a Bet271
 function mandaDatiBet271(){
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.open('GET', '/backend/sendToBet271.php', true);

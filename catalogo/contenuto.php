@@ -3,10 +3,9 @@
 
     $conn = new mysqli("localhost", "root", "", "db_NetStream");
 
-    if ($conn->connect_error) {
+    if ($conn->connect_error) 
         die("Connessione fallita: " . $conn->connect_error);
-    }
-
+    
     $idContenuto = $_GET['idContenuto'] ?? null;
     if(!$idContenuto){
         header("Location: /catalogo/catalogo.php");
@@ -18,9 +17,7 @@
 
     // Recupero contenuto
     $sql = "
-        SELECT c.titoloContenuto, c.descrizioneContenuto, c.regista, 
-               c.pathBanner, c.durataContenuto, c.dataUscita, 
-               c.pathContenuto, c.tipoContenuto
+        SELECT c.titoloContenuto, c.descrizioneContenuto, c.regista, c.pathBanner, c.durataContenuto, c.dataUscita, c.pathContenuto, c.tipoContenuto
         FROM contenuto c
         WHERE c.idContenuto = ?
     ";
@@ -49,10 +46,11 @@
     $stmt->execute();
     $result = $stmt->get_result();
 
+    // Array di generi
     $generi = [];
-    while ($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch_assoc())
         $generi[] = $row['nomeGenere'];
-    }
+
     $stmt->close();
 
     // Recupero stagioni
@@ -68,13 +66,13 @@
         $stmt->execute();
         $result = $stmt->get_result();
 
-        while ($row = $result->fetch_assoc()) {
+        while ($row = $result->fetch_assoc()) 
             $stagioni[] = $row;
-        }
+
         $stmt->close();
     }
 
-    // Recupero preferiti
+    // Recupera se il contenuto è tra i preferiti
     $isPreferito = false;
     if (isset($_SESSION['idProfilo'])) {
         $sql = "
@@ -108,11 +106,11 @@
                 <?= htmlspecialchars($contenuto['titoloContenuto']) ?>
             </span>
 
+            <!-- Button preferti -->
             <a href="/backend/listaPreferiti.php?idContenuto=<?= $idContenuto ?>" class="fav-btn" title="<?= $isPreferito ? 'Rimuovi dai preferiti' : 'Aggiungi ai preferiti' ?>">
                 <?= $isPreferito ? '★' : '☆' ?>
             </a>
         </h1>
-
 
         <p class="contenuto-description">
             <?= htmlspecialchars($contenuto['descrizioneContenuto']) ?>
@@ -125,7 +123,7 @@
         </div>
     </section>
 
-    <!-- NAV STAGIONI -->
+    <!-- NAV STAGIONI, EXTRA, RECENSIONI -->
     <section class='contenuto-nav'>
         <?php 
             if ($contenuto['tipoContenuto'] === 'Serie'){
@@ -137,25 +135,20 @@
                         </button>
                     ";
                 }
-                echo "
-                    <button class='nav-btn' data-stagione='-1'>
-                        Contenuti extra
-                    </button>
-                ";
             }
             else{
                 echo "
                     <button class='nav-btn' data-film='{$idContenuto}'>
                         Film completo
                     </button>
-
-                    <button class='nav-btn' data-stagione='-1'>
-                        Contenuti extra
-                    </button>
                 ";
             }
 
             echo "
+                <button class='nav-btn' data-stagione='-1'>
+                    Contenuti extra
+                </button> 
+
                 <button class='nav-btn' data-recensione='true'>
                     Recensioni
                 </button>
@@ -181,12 +174,13 @@
             <!-- Voto -->
             <select name="voto" id="voto" required>
                 <option value="">Stelle</option>
-                <?php for($i=1; $i<=5; $i++)
-                    echo "<option value='$i'>$i</option>";
+                <?php 
+                    for($i=1; $i<=5; $i++)
+                        echo "<option value='$i'>$i</option>";
                 ?>
             </select>
 
-            <!-- Commento -->
+            <!-- Recensione -->
             <textarea name="commento" class="review-textarea" placeholder="Scrivi cosa ne pensi..." required></textarea>
 
             <button type="submit" class="cta">Invia recensione</button>

@@ -40,14 +40,15 @@
     $stmt->execute();
     $result = $stmt->get_result();
 
+    // Array di profili
     $profili = [];
-    while ($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch_assoc())
         $profili[] = $row;
-    }
+    
     $numProfili = count($profili);
     $stmt->close();
 
-    // Limite
+    // Limite profili per abbonamento
     $stmt = $conn->prepare("
         SELECT ab.maxProfili
         FROM Sottoscrizione s
@@ -61,9 +62,9 @@
     $result = $stmt->get_result();
 
     $maxProfili = 0;
-    if ($row = $result->fetch_assoc()) {
+    if ($row = $result->fetch_assoc()) 
         $maxProfili = $row['maxProfili'];
-    }
+
     $puoCreareProfilo = ($numProfili < $maxProfili);
     $stmt->close();
 
@@ -96,7 +97,7 @@
             Modifica profilo
         </button>
 
-        <form method="post" id="deleteForm" style="display:inline; z-index: 1;">
+        <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post" id="deleteForm" style="display:inline; z-index: 1;">
             <input type="hidden" name="idProfilo" id="deleteProfileId">
             <button type="submit" name="deleteProfile" class="btn secondary" id="deleteBtn" disabled>
                 Elimina profilo

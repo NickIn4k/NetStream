@@ -45,7 +45,7 @@
 
     <div class="bet271-card">
         <div class="bet271-text">
-            <h2>🎰 Partnership con Bet271</h2>
+            <h2>Partnership Bet271</h2>
 
             <p>
                 Sei già iscritto a <strong>Bet271</strong>?  
