@@ -1,76 +1,60 @@
 document.addEventListener("DOMContentLoaded", () => {
-
+    // Selezione tramite classi CSS
     const container = document.querySelector(".contenuto-dynamic");
+    // Possono essere più di uno => più stagioni
     const buttons = document.querySelectorAll(".nav-btn");
 
-    if (!container || buttons.length === 0) return;
+    if (!container || buttons.length === 0) 
+        return;
 
+    // Ottieni l'id dall'url della get
     const idContenuto = new URLSearchParams(window.location.search).get("idContenuto");
 
-    //Funzione principale AJAX
-    function loadSeason(id) {
-        container.innerHTML = "Caricamento...";
-        let url;
-
-        if (id == -1) {
-            url = "/backend/ajaxExtra.php?idContenuto=" + encodeURIComponent(idContenuto);
-        } else {
-            url = "/backend/ajaxEpisodi.php?idStagione=" + encodeURIComponent(id);
-        }
+    // Funzione AJAX unica per tutte le richieste
+    function loadContent(url, loadingText = "Caricamento...") {
+        container.innerHTML = loadingText;
 
         const xhr = new XMLHttpRequest();
 
         xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4) {
+            if (xhr.readyState !== 4){
                 if (xhr.status === 200)
                     container.innerHTML = xhr.responseText;
-                else
+                else 
                     container.innerHTML = "Errore di caricamento";
-            }
+            }            
         };
 
         xhr.open("GET", url, true);
         xhr.send();
     }
 
-    function loadFilm(idContenuto) {
-        container.innerHTML = "Caricamento...";
+    // AJAX per caricare le stagioni
+    function loadSeason(idStagione) {
+        // id = -1: trailer (passa idContenuto)
+        // id = n: stagione (passa idStagione)
+        const url = (idStagione == -1) 
+        ? "/backend/ajaxExtra.php?idContenuto=" + encodeURIComponent(idContenuto)
+        : "/backend/ajaxEpisodi.php?idStagione=" + encodeURIComponent(idStagione);
 
-        const xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200)
-                    container.innerHTML = xhr.responseText;
-                else
-                    container.innerHTML = "Errore di caricamento";
-            }
-        };
-
-        xhr.open("GET","/backend/ajaxFilm.php?idContenuto=" + encodeURIComponent(idContenuto),true);
-        xhr.send();
+        loadContent(url);
     }
 
+    // AJAX per caricare il film
+    function loadFilm(idFilm) {
+        loadContent("/backend/ajaxFilm.php?idContenuto=" + encodeURIComponent(idFilm));
+    }
+
+    // AJAX per caricare recensioni
     function loadRecensioni() {
-        container.innerHTML = "Caricamento recensioni...";
-
-        const xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200)
-                    container.innerHTML = xhr.responseText;
-                else
-                    container.innerHTML = "Errore nel caricamento recensioni";
-            }
-        };
-
-        xhr.open("GET","/backend/ajaxRecensioni.php?idContenuto=" + encodeURIComponent(idContenuto),true);
-        xhr.send();
+        loadContent("/backend/ajaxRecensioni.php?idContenuto=" + encodeURIComponent(idContenuto), "Caricamento recensioni...");
     }
 
-    //Click sui bottoni stagione
+    // Handler del click 
     buttons.forEach(btn => {
         btn.addEventListener("click", () => {
 
+            // Rimuovi la classe active da tutti e poi mettila solo al button cliccato
             buttons.forEach(b => b.classList.remove("active"));
             btn.classList.add("active");
 
@@ -83,13 +67,15 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    //Caricamento automatico stagione 1
-    buttons[0].classList.add("active");
-    if (buttons[0].dataset.film) {
-        loadFilm(buttons[0].dataset.film);
-    } else if (buttons[0].dataset.recensione) {
+    // Caricamento automatico stagione 1
+    const firstBtn = buttons[0];
+    firstBtn.classList.add("active");
+
+    // Edit susscessivo: Handling degli altri buttons
+    if (firstBtn.dataset.film)
+        loadFilm(firstBtn.dataset.film);
+    else if (firstBtn.dataset.recensione)
         loadRecensioni();
-    } else {
-        loadSeason(buttons[0].dataset.stagione);
-    }
+    else
+        loadSeason(firstBtn.dataset.stagione);
 });

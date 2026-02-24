@@ -20,6 +20,7 @@
     $stmt->execute();
     $result = $stmt->get_result();
 
+    // Ogni episodio => Card con titolo, durata e btn "Guarda" (CSS comune con episodio)
     while ($row = $result->fetch_assoc()) {
         echo "
             <div class='episode-card'>

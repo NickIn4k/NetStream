@@ -53,9 +53,8 @@
             </p>
 
             <ul>
-                <li>Punti bonus NetStream</li>
-                <li>Accesso anticipato a contenuti esclusivi</li>
-                <li>Sconti sugli abbonamenti</li>
+                <li>Punti e avatar bonus NetStream</li>
+                <li>Crediti aggiuntivi per Bet271</li>
             </ul>
         </div>
 

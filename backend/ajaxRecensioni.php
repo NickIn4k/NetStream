@@ -35,7 +35,7 @@
         exit;
     }
 
-    // Output HTML
+    // Output HTML => Lista di card con Nome, commento, data e stelle
     while ($row = $result->fetch_assoc()) {
         $nomeProfilo = htmlspecialchars($row['nomeProfilo']);
         $commento    = htmlspecialchars($row['commento']);

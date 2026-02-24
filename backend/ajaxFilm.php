@@ -18,6 +18,7 @@
 
     $row = $result->fetch_assoc();
 
+    // Card per il singolo Film (CSS comune con episodio)
     echo "
         <div class='episode-card'>
             <div class='episode-left'>
