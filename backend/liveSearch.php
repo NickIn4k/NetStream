@@ -21,6 +21,13 @@
         $option = 'titoloContenuto';
     }
 
+    /* Casi query:
+        - utente loggato -> si filtra in base all'eta profilo e al rating del contenuto
+        - utente non loggato -> nessun filtro, deve essere solo nella pagina di home
+        
+        In ogni caso, la ricerca è basata su 'option' che viene ricavata dall'elemento <select> di html.
+        Il Like serve per dare tutte le opzioni che iniziano con la serie di caratteri nella ricerca.
+    */
     $sql = "
     SELECT c.idContenuto, c.titoloContenuto, c.pathCopertina
     FROM contenuto c
@@ -48,6 +55,7 @@
     $stmt->execute();
     $result = $stmt->get_result();
 
+    // Creazione elementi presenti nella lista contenuti
     if ($result->num_rows == 0) {
         echo "<div class='no-result'>Nessun risultato</div>";
     } else {

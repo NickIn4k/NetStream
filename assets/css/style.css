@@ -1582,6 +1582,8 @@ a.result-item {
 
 /* Contenitore singola recensione */
 .review-item {
+    position: relative;
+    z-index: 1;
     background-color: #181818;
     border-radius: 8px;
     padding: 14px 16px;

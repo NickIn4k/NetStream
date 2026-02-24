@@ -78,16 +78,20 @@
 
 <section class="signin-main">
     <div class="signin-box">
-        <?php if (!empty($msg)): ?>
-            <div class="msg-wrapper">
-                <?= $msg ?>
-            </div>
-        <?php endif; ?>
+        <?php 
+            if (!empty($msg)){
+                echo "
+                    <div class='msg-wrapper'>
+                        $msg 
+                    </div>
+                ";
+            }
+        ?>
 
         <h1>Accedi</h1>
         <p class="signin-subtitle">Bentornato su NetStream</p>
 
-        <form action="" method="post">
+        <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
             <div class="form-group">
                 <label for="login">Username o Email</label>
                 <input type="text" id="login" name="login" required maxlength="100">

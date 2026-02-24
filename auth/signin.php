@@ -11,6 +11,7 @@ include __DIR__ . '/../includes/header.php';
 $msg = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST)) {
+    $msg = "<div class='msg error'>";
 
     $conn = new mysqli("localhost", "root", "", "db_NetStream");
     if ($conn->connect_error)
@@ -26,19 +27,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST)) {
     $abbonamento = $_POST['abbonamento'];
 
     if (empty($nomeUtente) || empty($email) || empty($pwd) || empty($numeroCarta) || empty($scadenza) || empty($cvv)) {
-        $msg = "<div class='msg error'>Compila tutti i campi obbligatori.</div>";
+        $msg = $msg . "Compila tutti i campi obbligatori";
     } elseif (strlen($nomeUtente) > 50) {
-        $msg = "<div class='msg error'>Username troppo lungo (max 50 caratteri).</div>";
+        $msg = $msg . "Username troppo lungo (max 50 caratteri).";
     } elseif (strlen($email) > 100 || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $msg = "<div class='msg error'>Email non valida o troppo lunga.</div>";
+        $msg = $msg . "Email non valida o troppo lunga.";
     } elseif (strlen($pwd) < 6 || strlen($pwd) > 255) {
-        $msg = "<div class='msg error'>Password non valida (6–255 caratteri).</div>";
+        $msg = $msg . "Password non valida (6–255 caratteri).";
     } elseif (!preg_match('/^[0-9]{13,19}$/', $numeroCarta)) {
-        $msg = "<div class='msg error'>Numero carta non plausibile.</div>";
+        $msg = $msg . "Numero carta non plausibile.";
     } elseif (!preg_match('/^(0[1-9]|1[0-2])\/[0-9]{2}$/', $scadenza)) {
-        $msg = "<div class='msg error'>Scadenza non valida (MM/AA).</div>";
+        $msg = $msg . "Scadenza non valida (MM/AA).";
     } elseif (!preg_match('/^[0-9]{3}$/', $cvv)) {
-        $msg = "<div class='msg error'>CVV non valido (3 cifre).</div>";
+        $msg = $msg . "CVV non valido (3 cifre).";
     } else {
         //Controllo duplicati
         $stmt = $conn->prepare("SELECT idUtente FROM Utente WHERE nomeUtente = ? OR email = ?");
@@ -47,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST)) {
         $stmt->store_result();
 
         if ($stmt->num_rows > 0) {
-            $msg = "<div class='msg error'>Username o email già registrati.</div>";
+            $msg = $msg . "Username o email già registrati.";
         } else {
             //Inserimento utente
             $pwd_hash = password_hash($pwd, PASSWORD_DEFAULT);
@@ -86,13 +87,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST)) {
                 header("Location: /../profili/profili.php");
                 exit;
             } else {
-                $msg = "<div class='msg error'>Errore durante la registrazione.</div>";
+                $msg = $msg . "Errore durante la registrazione.";
             }
             $stmt_insert->close();
         }
         $stmt->close();
     }
     $conn->close();
+    $msg = $msg . "</div>";
 }
 
 //Messaggi di errore
@@ -102,11 +104,15 @@ if (!empty($msg))
 
 <section class="signin-main">
     <div class="signin-box">
-        <?php if (!empty($msg)): ?>
-            <div class="msg-wrapper">
-                <?= $msg ?>
-            </div>
-        <?php endif; ?>
+        <?php 
+            if (!empty($msg)){
+                echo "
+                    <div class='msg-wrapper'>
+                        $msg
+                    </div>
+                ";
+            }
+        ?>
 
         <h1>Registrati</h1>
         <p class="signin-subtitle">Crea il tuo account NetStream</p>

@@ -1,13 +1,13 @@
 <?php
     session_start();
     unset($_SESSION['idProfilo']);
+
+    // Include di elementi comuni tra tutte le pagine (costruiti con php)
     include __DIR__ . '/includes/header.php';
 ?>
 
 <section class="hero-main">
-    <h1>
-        NetStream&trade;
-    </h1>
+    <h1>NetStream&trade;</h1>
     <p>Emozioni in ogni click.</p>
 </section>
 
@@ -38,6 +38,12 @@
             <p>Qualità 4K</p>
             <p>6 Profili </p>
         </div>
+    </div>
+</section>
+
+<section class="bet271">
+    <div class="bet">
+        
     </div>
 </section>
 

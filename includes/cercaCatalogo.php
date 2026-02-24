@@ -1,15 +1,17 @@
 <script>
+    // Funzione collegamento JS -> PHP (AJAX)
     function showResultWithOption(searchFlag = '') {
+        // Elementi html
         const input = document.getElementById("searchInput").value;
         const option = document.getElementById("searchOption").value;
-        const liveSearchDiv = document.getElementById("livesearch");
+        const liveSearchDiv = document.getElementById("livesearch"); // Div con tutto
 
         if (input.length == 0) {
             liveSearchDiv.innerHTML = "";
             liveSearchDiv.style.display = "none";
             return;
         }
-
+        
         const xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
@@ -18,6 +20,7 @@
             }
         };
 
+        // Manda richiesta in GET
         xmlhttp.open("GET", `/backend/liveSearch.php?c=${encodeURIComponent(input)}&option=${option}&searchFlag=${searchFlag}`, true);
         xmlhttp.send();
     }
