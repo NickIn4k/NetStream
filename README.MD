@@ -180,8 +180,6 @@ File: `xampp/apache/conf/extra/httpd-vhosts.conf`
 </VirtualHost>
 ```
 
-## Installazione e configurazione locale (XAMPP)
-
 ### File Hosts
 File: `C:\Windows\System32\drivers\etc\hosts`
 
@@ -198,6 +196,7 @@ File: `C:\Windows\System32\drivers\etc\hosts`
 - Sanitizzazione input lato server e client
 - Memorizzazione minima dei dati personali
 - Materiale multimediale non protetto da copyright
+- gitignore dei file di configurazione
 
 --- 
 
@@ -233,4 +232,9 @@ File: `C:\Windows\System32\drivers\etc\hosts`
 - Progetto scolastico a scopo didattico.
 - Nessun utilizzo commerciale senza autorizzazione.
 
+---
 
+## Configurazione e DataBase
+- Salvare nella cartella `/assets/` la cartella `/configurations/` che è stata passata in via confidenziale dagli autori
+- Importare su PHPMyAdmin il file db_NetStream
+- Creare l'utente `netstream_user` secondo le direttive degli autori

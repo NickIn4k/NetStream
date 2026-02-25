@@ -14,7 +14,9 @@
 
     $idContenuto = $_GET['idContenuto'];
 
-    $conn = new mysqli("localhost", "root", "", "db_NetStream");
+    $config = require __DIR__ . '/../assets/configurations/configDB.php';
+    $conn = new mysqli($config['DB_HOST'], $config['DB_USER'], $config['DB_PASS'], $config['DB_NAME']);
+
     if ($conn->connect_error)
         die("Connessione fallita: " . $conn->connect_error);
 

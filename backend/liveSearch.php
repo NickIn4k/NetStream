@@ -10,7 +10,9 @@
         exit;
     }
 
-    $conn = new mysqli("localhost", "root", "", "db_NetStream");
+    $config = require __DIR__ . '/../assets/configurations/configDB.php';
+    $conn = new mysqli($config['DB_HOST'], $config['DB_USER'], $config['DB_PASS'], $config['DB_NAME']);
+
     if ($conn->connect_error) {
         http_response_code(500);
         echo "Errore di connessione al database";

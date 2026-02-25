@@ -1,6 +1,6 @@
 <?php
-
-    $conn = new mysqli("localhost", "root", "", "db_NetStream");
+    $config = require __DIR__ . '/../assets/configurations/configDB.php';
+    $conn = new mysqli($config['DB_HOST'], $config['DB_USER'], $config['DB_PASS'], $config['DB_NAME']);
 
     $idContenuto = $_GET['idContenuto'] ?? null;
     if (!$idContenuto) 

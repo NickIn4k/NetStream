@@ -9,7 +9,8 @@
     $email = $_POST['email'];
     $value = $_POST['value'];
 
-    $conn = new mysqli("localhost", "root", "", "db_NetStream");
+    $config = require __DIR__ . '/../assets/configurations/configDB.php';
+    $conn = new mysqli($config['DB_HOST'], $config['DB_USER'], $config['DB_PASS'], $config['DB_NAME']);
 
     //controlla se esiste l'utente con la stessa email
     $stmt = $conn->prepare("SELECT idUtente, bet271Points FROM utente WHERE email = ?");

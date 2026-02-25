@@ -22,7 +22,8 @@
         exit;
     }
 
-    $conn = new mysqli("localhost", "root", "", "db_NetStream");
+    $config = require __DIR__ . '/../assets/configurations/configDB.php';
+    $conn = new mysqli($config['DB_HOST'], $config['DB_USER'], $config['DB_PASS'], $config['DB_NAME']);
 
     if($conn->connect_error) {
         echo json_encode(['success' => false, 'message' => 'Connessione al database fallita.']);
