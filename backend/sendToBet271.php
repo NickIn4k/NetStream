@@ -1,22 +1,22 @@
 <?php
     session_start();
-    $IP = "10.119.195.203";
-    $PathAlFile = "projects/bet_271/comms";
-    $nomeFile = "updateBet271.php";
 
     if (!isset($_SESSION['email']))
         die("Utente non loggato");
 
+    $config = require __DIR__ . '/configurations/config.php';
+
     $email = $_SESSION['email'];
-    $secret = "CHIAVE_SUPER_SEGRETA"; //Chiave condivisa con bet271
 
     echo "<script>console.log('Messaggio da PHP: Utente loggato con email: " . $email . "');</script>";
 
     $data = [
         'email' => $email,
-        'secret' => $secret,
+        'secret' => $config['BET271_SECRET'], // Key comune a Bet271 per evitare Man-In-The-Middle attacks
         'value' => '250' //Punti da aggiungere
     ];
+
+    $url = "http://{$config['BET271_IP']}/{$config['BET271_PATH']}/{$config['BET271_FILE']}";
 
     $options = [
         'http' => [
@@ -27,7 +27,7 @@
     ];
 
     $context = stream_context_create($options);
-    $response = file_get_contents("http://$IP/$PathAlFile/$nomeFile", false, $context);
+    $response = file_get_contents($url, false, $context);
 
     echo $response;
 ?>

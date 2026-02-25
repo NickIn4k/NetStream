@@ -1,7 +1,7 @@
 <?php
-    $secret = "CHIAVE_SUPER_SEGRETA"; //Chiave condivisa con Bet271
+    $config = require __DIR__ . '/configurations/config.php'; //Chiave condivisa con Bet271
 
-    if ($_POST['secret'] !== $secret) {
+    if ($_POST['secret'] !== $config['BET271_SECRET']) {
         http_response_code(403);
         die("Accesso negato");
     }
