@@ -1,5 +1,6 @@
 <?php
     session_start();
+    unset($_SESSION['idProfilo']);
 
     if (!isset($_SESSION['idUtente']) || !isset($_SESSION['nomeUtente'])) {
         header("Location: /../auth/login.php");

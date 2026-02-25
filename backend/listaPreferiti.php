@@ -15,23 +15,13 @@
     $idContenuto = $_GET['idContenuto'];
 
     $conn = new mysqli("localhost", "root", "", "db_NetStream");
-    if ($conn->connect_error) {
+    if ($conn->connect_error)
         die("Connessione fallita: " . $conn->connect_error);
-    }
 
-    // Prima prendiamo l'idProfilo attivo (o il primo profilo dell'utente)
-    $stmt = $conn->prepare("SELECT idProfilo FROM Profilo WHERE idUtente = ? LIMIT 1");
-    $stmt->bind_param("i", $idUtente);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $profilo = $result->fetch_assoc();
-    $stmt->close();
+    $idProfilo = $_SESSION['idProfilo'];
 
-    if (!$profilo) {
+    if (!$idProfilo) 
         die("Nessun profilo trovato per l'utente");
-    }
-
-    $idProfilo = $profilo['idProfilo'];
 
     // Controllo se il contenuto è già nei preferiti
     $stmt = $conn->prepare("SELECT 1 FROM ListaPreferiti WHERE idProfilo = ? AND idContenuto = ?");

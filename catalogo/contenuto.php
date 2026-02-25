@@ -1,6 +1,5 @@
 <?php 
-    include __DIR__ . '/../includes/header.php';
-
+    session_start();
     $conn = new mysqli("localhost", "root", "", "db_NetStream");
 
     if ($conn->connect_error) 
@@ -89,6 +88,8 @@
         $isPreferito = $stmt->num_rows > 0;
         $stmt->close();
     }
+
+    include __DIR__ . '/../includes/header.php';
 ?>
 
 <main class="contenuto-page">
