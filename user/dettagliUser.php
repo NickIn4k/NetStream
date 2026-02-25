@@ -128,8 +128,7 @@
 ?>
 
 <?php 
-    if (!empty($msg)) 
-        echo $msg; 
+    if (!empty($msg)) echo $msg; 
 ?>
 
 <section class="signin-main">
