@@ -4,7 +4,7 @@
     if (!isset($_SESSION['email']))
         die("Utente non loggato");
 
-    $config = require __DIR__ . '/configurations/config.php';
+    $config = require __DIR__ . '/../assets/configurations/config.php';
 
     $email = $_SESSION['email'];
 

@@ -1,5 +1,5 @@
 <?php
-    $config = require __DIR__ . '/configurations/config.php'; //Chiave condivisa con Bet271
+    $config = require __DIR__ . '/../assets/configurations/config.php'; //Chiave condivisa con Bet271
 
     if ($_POST['secret'] !== $config['BET271_SECRET']) {
         http_response_code(403);

@@ -140,12 +140,16 @@
         <p class="signin-subtitle">Dettagli profilo e abbonamento</p>
 
         <!-- AVVISO ABBONAMENTO SCADUTO -->
-        <?php if (!$sottoscrizioneAttiva): ?>
-            <div class="msg error" style="margin-bottom:16px;">
-                Il tuo abbonamento è <strong>SCADUTO</strong>.  
-                Rinnovalo per continuare a usare NetStream.
-            </div>
-        <?php endif; ?>
+        <?php 
+            if (!$sottoscrizioneAttiva){
+                echo "
+                    <div class='msg error' style='margin-bottom:16px;'>
+                        Il tuo abbonamento è <strong>SCADUTO</strong>.  
+                        Rinnovalo per continuare a usare NetStream.
+                    </div>
+                ";
+            }    
+        ?>
 
         <!-- DATI ACCOUNT -->
         <div class="card-box">
