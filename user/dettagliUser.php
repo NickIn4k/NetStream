@@ -14,13 +14,16 @@
     $idUtente = $_SESSION['idUtente'];
     $msg = "";
 
-    //Recupero dati utente e abbonamento attivo
+    //Recupero dati utente e ultima sottoscrizione 
     $stmt = $conn->prepare("
-        SELECT u.nomeUtente, u.email, a.tipoAbbonamento, a.prezzo, a.qualitaMassima, a.maxProfili, s.dataInizio, s.dataFine, s.statoSottoscrizione
+        SELECT u.nomeUtente, u.email, 
+            a.tipoAbbonamento, a.prezzo, a.qualitaMassima, a.maxProfili,
+            s.dataInizio, s.dataFine, s.statoSottoscrizione
         FROM Utente u
         INNER JOIN Sottoscrizione s ON u.idUtente = s.idUtente
         INNER JOIN Abbonamento a ON s.idAbbonamento = a.idAbbonamento
-        WHERE u.idUtente = ? AND s.statoSottoscrizione = 'ATTIVA'
+        WHERE u.idUtente = ?
+        ORDER BY s.dataFine DESC
         LIMIT 1
     ");
 

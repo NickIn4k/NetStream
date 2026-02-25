@@ -1,6 +1,6 @@
 <?php
     session_start();
-    $IP = "10.68.90.203";
+    $IP = "10.119.195.203";
     $PathAlFile = "projects/bet_271/comms";
     $nomeFile = "updateBet271.php";
 

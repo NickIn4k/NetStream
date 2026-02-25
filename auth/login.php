@@ -13,9 +13,8 @@
     if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST)) {
         $conn = new mysqli("localhost", "root", "", "db_NetStream");
 
-        if ($conn->connect_error) {
+        if ($conn->connect_error)
             die("Connessione fallita: " . $conn->connect_error);
-        }
 
         //Recupero dati
         $login = trim($_POST['login']); //username o email
@@ -37,17 +36,24 @@
                 if (password_verify($pwd, $utente['password'])) {
                     $idUtente = $utente['idUtente'];
 
-                    //Controllo sottoscrizione ATTIVA
-                    $stmt_sub = $conn->prepare("SELECT s.idSottoscrizione FROM Sottoscrizione s WHERE s.idUtente = ? AND s.statoSottoscrizione = 'ATTIVA' AND (s.dataFine IS NULL OR s.dataFine >= CURDATE()) LIMIT 1");
+                    // Controllo sottoscrizione
+                    $stmt_sub = $conn->prepare("
+                        SELECT statoSottoscrizione
+                        FROM Sottoscrizione
+                        WHERE idUtente = ?
+                        ORDER BY dataFine DESC
+                        LIMIT 1
+                    ");
+
                     $stmt_sub->bind_param("i", $idUtente);
                     $stmt_sub->execute();
-                    $stmt_sub->store_result();
-
-                    if ($stmt_sub->num_rows === 1) {
-                        //Login
+                    $stmt_sub->bind_result($stato);
+                    
+                    if ($stmt_sub->fetch()) {
                         $_SESSION['idUtente'] = $idUtente;
                         $_SESSION['nomeUtente'] = $utente['nomeUtente'];
                         $_SESSION['email'] = $utente['email'];
+                        $_SESSION['statoSottoscrizione'] = $stato;
 
                         $stmt_sub->close();
                         $stmt->close();
@@ -55,8 +61,9 @@
 
                         header("Location: /profili/profili.php");
                         exit;
+
                     } else {
-                        $msg = "<div class='msg error'>Sottoscrizione non attiva o scaduta.</div>";
+                        $msg = "<div class='msg error'>Devi avere almeno una sottoscrizione.</div>";
                     }
 
                     $stmt_sub->close();

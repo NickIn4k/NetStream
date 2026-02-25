@@ -87,6 +87,7 @@
         }
     } 
     
+    include __DIR__ . '/../includes/checkSubscription.php';
     include __DIR__ . '/../includes/header.php';
 ?>
 
