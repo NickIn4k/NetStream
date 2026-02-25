@@ -40,38 +40,8 @@
     //Boolean sottoscrizione attiva
     $sottoscrizioneAttiva = ($dati['statoSottoscrizione'] === 'ATTIVA');
 
-    //RINNOVO ABBONAMENTO (SOLO SE SCADUTO)
-    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['rinnovaAbbonamento'])) {
-
-        $stmt_rinnovo = $conn->prepare("
-            UPDATE Sottoscrizione
-            SET 
-                statoSottoscrizione = 'ATTIVA',
-                dataInizio = CURDATE(),
-                dataFine = DATE_ADD(CURDATE(), INTERVAL 1 MONTH)
-            WHERE idUtente = ?
-            ORDER BY dataFine DESC
-            LIMIT 1
-        ");
-
-        $stmt_rinnovo->bind_param("i", $idUtente);
-
-        if ($stmt_rinnovo->execute()) {
-            //Aggiorno anche la sessione
-            $_SESSION['statoSottoscrizione'] = 'ATTIVA';
-
-            $msg = "<div class='msg success'>Abbonamento rinnovato con successo.</div>";
-            header("Refresh:1");
-        } else {
-            $msg = "<div class='msg error'>Errore nel rinnovo dell'abbonamento.</div>";
-        }
-
-        $stmt_rinnovo->close();
-    }
-
-    //CAMBIO PIANO (SOLO SE ATTIVO)
+    //Cambio abbonamento
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['nuovoAbbonamento'])) {
-
         $nuovoAbbonamento = $_POST['nuovoAbbonamento'];
 
         //Recupero idAbbonamento e maxProfili del nuovo piano
@@ -86,7 +56,7 @@
         $stmt_abbon->fetch();
         $stmt_abbon->close();
 
-        //Conteggio profili attuali
+        //Conteggio profili attuali dell'utente
         $stmt_prof = $conn->prepare("
             SELECT COUNT(*) 
             FROM Profilo 
@@ -101,24 +71,24 @@
         //Controllo limite profili
         if ($numeroProfili > $maxProfiliNuovo) {
             $msg = "<div class='msg error'>
-                Impossibile cambiare piano: hai $numeroProfili profili, 
-                ma il nuovo abbonamento ne consente massimo $maxProfiliNuovo.
-            </div>";
+                        Impossibile cambiare piano: hai $numeroProfili profili, 
+                        ma il nuovo abbonamento ne consente massimo $maxProfiliNuovo.
+                    </div>";
         } else {
-            //Aggiorno sottoscrizione attiva
+            //Aggiorno sottoscrizione
             $stmt_upd = $conn->prepare("
                 UPDATE Sottoscrizione
                 SET idAbbonamento = ?
                 WHERE idUtente = ? AND statoSottoscrizione = 'ATTIVA'
             ");
+
             $stmt_upd->bind_param("ii", $idAbbonamentoNuovo, $idUtente);
 
             if ($stmt_upd->execute()) {
                 $msg = "<div class='msg success'>Abbonamento aggiornato con successo.</div>";
                 header("Refresh:1");
-            } else {
+            } else 
                 $msg = "<div class='msg error'>Errore nel cambio abbonamento.</div>";
-            }
 
             $stmt_upd->close();
         }
@@ -128,23 +98,19 @@
 ?>
 
 <?php 
-    if (!empty($msg)) 
-        echo $msg; 
+    if (!empty($msg)) echo $msg; 
 ?>
 
 <section class="signin-main">
     <div class="signin-box">
+        <?php if (!empty($msg)): ?>
+            <div class="msg-wrapper">
+                <?= $msg ?>
+            </div>
+        <?php endif; ?>
 
         <h1>Il tuo account</h1>
         <p class="signin-subtitle">Dettagli profilo e abbonamento</p>
-
-        <!-- AVVISO ABBONAMENTO SCADUTO -->
-        <?php if (!$sottoscrizioneAttiva): ?>
-            <div class="msg error" style="margin-bottom:16px;">
-                Il tuo abbonamento è <strong>SCADUTO</strong>.  
-                Rinnovalo per continuare a usare NetStream.
-            </div>
-        <?php endif; ?>
 
         <!-- DATI ACCOUNT -->
         <div class="card-box">
@@ -167,15 +133,14 @@
             <p><strong>Profili max:</strong> <?= $dati['maxProfili'] ?></p>
         </div>
 
-        <!-- CAMBIO PIANO (SOLO SE ATTIVO) -->
-        <?php if ($sottoscrizioneAttiva): ?>
+        <!-- CAMBIO ABBONAMENTO -->
         <form method="post" class="card-box">
             <p class="card-title">Cambia abbonamento</p>
 
             <div class="form-group">
                 <label for="nuovoAbbonamento">Nuovo piano</label>
                 <select name="nuovoAbbonamento" id="nuovoAbbonamento" required>
-                    <?= $dati['tipoAbbonamento'] !== 'Base' ? "<option value='Base'>Base - 6.99€</option>" : "" ?>
+                    <?=  $dati['tipoAbbonamento'] !== 'Base' ? "<option value='Base'>Base - 6.99€</option>" : "" ?>
                     <?= $dati['tipoAbbonamento'] !== 'Medium' ? "<option value='Medium'>Medium - 9.99€</option>" : "" ?>
                     <?= $dati['tipoAbbonamento'] !== 'Pro' ? "<option value='Pro'>Pro - 12.99€</option>" : "" ?>
                 </select>
@@ -185,26 +150,6 @@
                 <input type="submit" value="Aggiorna piano" class="cta">
             </div>
         </form>
-        <?php endif; ?>
-
-        <!-- RINNOVO ABBONAMENTO (SOLO SE SCADUTO) -->
-        <?php if (!$sottoscrizioneAttiva): ?>
-        <form method="post" class="card-box">
-            <p class="card-title">Rinnova abbonamento</p>
-
-            <p>
-                Piano precedente: <strong><?= $dati['tipoAbbonamento'] ?></strong><br>
-                Prezzo: €<?= $dati['prezzo'] ?> / mese
-            </p>
-
-            <div class="form-buttons">
-                <button type="submit" name="rinnovaAbbonamento" class="cta">
-                    Rinnova ora
-                </button>
-            </div>
-        </form>
-        <?php endif; ?>
-
     </div>
 </section>
 
