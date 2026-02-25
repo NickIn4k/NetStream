@@ -221,15 +221,16 @@ File: `C:\Windows\System32\drivers\etc\hosts`
 ---
 
 ## Collegamenti utili
-- [Schema E/R] (https://drive.google.com/file/d/1yxaMvmW_1t03cRt1hPn2aF7)
-- [Casi d’uso] (https://app.diagrams.net/?src=about#G1rh9B3kzQ6-oLwPishEIbt59a3Tks-BU-#%7B%22pageId%22%3A%22nwiu5D8VHdWwTwha1Pyo%22%7D)
-- [Wireframe] (https://app.diagrams.net/#G1kOkwGg3M5l6pRRqG8plLpAB2B4_1Hik-#%7B%22pageId%22%3A%22YtazCz1vlDWSd4tnCc49%22%7D)
-- [Trello] (https://trello.com/b/3B4ggLJY/netstream)
-- [Gantt] (https://docs.google.com/spreadsheets/d/1FqmwYdQ6B7qnywzwPMZuINLSHChE1eK05GyFGGFuGZ8/edit?gid=1115838130#gid=1115838130)
+- [Schema E/R](https://drive.google.com/file/d/1yxaMvmW_1t03cRt1hPn2aF7)
+- [Casi d’uso](https://app.diagrams.net/?src=about#G1rh9B3kzQ6-oLwPishEIbt59a3Tks-BU-#%7B%22pageId%22%3A%22nwiu5D8VHdWwTwha1Pyo%22%7D)
+- [Wireframe](https://app.diagrams.net/#G1kOkwGg3M5l6pRRqG8plLpAB2B4_1Hik-#%7B%22pageId%22%3A%22YtazCz1vlDWSd4tnCc49%22%7D)
+- [Trello](https://trello.com/b/3B4ggLJY/netstream)
+- [Gantt](https://docs.google.com/spreadsheets/d/1FqmwYdQ6B7qnywzwPMZuINLSHChE1eK05GyFGGFuGZ8/edit?gid=1115838130#gid=1115838130)
 
 ---
 
 ## Licenza
 - Progetto scolastico a scopo didattico.
 - Nessun utilizzo commerciale senza autorizzazione.
+
 
