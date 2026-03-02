@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const firstBtn = buttons[0];
     firstBtn.classList.add("active");
 
-    // Edit susscessivo: Handling degli altri buttons
+    // Edit aggiuntivo: Handling degli altri buttons
     if (firstBtn.dataset.film)
         loadFilm(firstBtn.dataset.film);
     else if (firstBtn.dataset.recensione)

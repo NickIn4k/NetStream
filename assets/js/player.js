@@ -85,7 +85,7 @@ const contenuto = {
     tempo: 0
 };
 
-// ogni 60 secondi invia lo stato corrente
+// ogni 30 secondi invia lo stato corrente
 setInterval(() => {
     console.log(contenuto);
     contenuto.tempo = Math.floor(video.currentTime); // aggiorna il tempo corrente

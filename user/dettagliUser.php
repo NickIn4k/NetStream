@@ -193,23 +193,25 @@
         <?php endif; ?>
 
         <!-- RINNOVO ABBONAMENTO (SOLO SE SCADUTO) -->
-        <?php if (!$sottoscrizioneAttiva): ?>
-        <form method="post" class="card-box">
-            <p class="card-title">Rinnova abbonamento</p>
+        <?php 
+            if (!$sottoscrizioneAttiva){
+                echo "
+                <form method='post' class='card-box'>
+                    <p class='card-title'>Rinnova abbonamento</p>
 
-            <p>
-                Piano precedente: <strong><?= $dati['tipoAbbonamento'] ?></strong><br>
-                Prezzo: €<?= $dati['prezzo'] ?> / mese
-            </p>
+                    <p>
+                        Piano precedente: <strong>".$dati['tipoAbbonamento']."</strong><br>
+                        Prezzo: €,".$dati['prezzo']." / mese
+                    </p>
 
-            <div class="form-buttons">
-                <button type="submit" name="rinnovaAbbonamento" class="cta">
-                    Rinnova ora
-                </button>
-            </div>
-        </form>
-        <?php endif; ?>
-
+                    <div class='form-buttons'>
+                        <button type='submit' name='rinnovaAbbonamento' class='cta'>
+                            Rinnova ora
+                        </button>
+                    </div>
+                </form>";
+            }
+        ?>
     </div>
 </section>
 
